@@ -90,7 +90,6 @@
       obsidian
       vivaldi
       neofetch
-
     ];
   };
 
@@ -128,6 +127,9 @@
     python312Packages.pip
     uv
     nodejs_20
+    cudaPackages.cuda_nvcc
+    cudaPackages.cuda_cudart
+    cudatoolkit
 
     pkg-config
     nixfmt-rfc-style
