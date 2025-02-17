@@ -89,6 +89,7 @@
     packages = with pkgs; [
     obsidian
     vivaldi
+    ghostty
     ];
   };
 
@@ -102,7 +103,15 @@
   git
   zip
   fzf
+  gnupg
+  pinentry-curses
   ];
+  
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+	   enable = true;
+	   enableSSHSupport = true;
+   };
 
   services.openssh.enable = true;
   system.stateVersion = "24.11";
