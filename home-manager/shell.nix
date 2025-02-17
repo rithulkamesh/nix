@@ -44,6 +44,7 @@
     shellAliases = {
       ls = "eza -alh --color=always --group-directories-first --icons";
       lt = "eza -aT --color=always --group-directories-first --icons";
+      vi = "nvim";
     };
 
     initExtra = ''
@@ -64,7 +65,7 @@
       eval "$(zoxide init zsh)"
 
       # ABBR settings
-      ABBR_SET_EXPANSION_CURSOR=1
+      export ABBR_SET_EXPANSION_CURSOR=1
 
       # CUDA settings
       export CUDA_HOME="/usr/local/cuda-12"

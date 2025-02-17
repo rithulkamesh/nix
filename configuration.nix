@@ -40,6 +40,8 @@
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Kolkata";
+  time.hardwareClockInLocalTime = true;
+
   i18n.defaultLocale = "en_IN";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "en_IN";
@@ -90,6 +92,7 @@
       obsidian
       vivaldi
       neofetch
+      discord
     ];
   };
 
@@ -127,9 +130,14 @@
     python312Packages.pip
     uv
     nodejs_20
-    cudaPackages.cuda_nvcc
-    cudaPackages.cuda_cudart
+
     cudatoolkit
+    linuxPackages.nvidia_x11
+    libGLU
+    libGL
+    xorg.libX11
+    xorg.libXi
+    xorg.libXmu
 
     pkg-config
     nixfmt-rfc-style
