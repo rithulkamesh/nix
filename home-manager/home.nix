@@ -15,6 +15,7 @@
     pyenv
     direnv
     zathura
+    gh
   ];
 
   imports = [
