@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   imports = [ ./hardware-configuration.nix ];
 
   hardware.graphics.enable = true;
@@ -72,8 +73,17 @@
   users.users.rkamesh = {
     isNormalUser = true;
     description = "Rithul Kamesh";
-    extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ obsidian vivaldi ghostty neofetch zathura ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
+    packages = with pkgs; [
+      obsidian
+      vivaldi
+      ghostty
+      neofetch
+      zathura
+    ];
   };
 
   programs.firefox.enable = false;
@@ -89,6 +99,7 @@
     gnupg
     pinentry-curses
     zsh
+    eza
     # Build tools for C/C++, Go, Rust, etc.
     gcc
     clang
@@ -114,9 +125,7 @@
   };
 
   environment.shellInit = ''
-    export LD_LIBRARY_PATH="${
-      pkgs.lib.makeLibraryPath [ pkgs.fzf ]
-    }:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [ pkgs.fzf ]}:$LD_LIBRARY_PATH"
   '';
 
   services.openssh.enable = true;
