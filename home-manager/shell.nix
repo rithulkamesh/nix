@@ -13,7 +13,7 @@
     # Additional plugins not in oh-my-zsh
     plugins = [
       {
-        name = "fast-syntax-highlighting";
+        name = "F-Sy-H";
         src = pkgs.fetchFromGitHub {
           owner = "z-shell";
           repo = "F-Sy-H";
