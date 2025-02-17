@@ -1,5 +1,4 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
   imports = [ ./hardware-configuration.nix ];
 
   hardware.graphics.enable = true;
@@ -33,15 +32,15 @@
   time.timeZone = "Asia/Kolkata";
   i18n.defaultLocale = "en_IN";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS         = "en_IN";
-    LC_IDENTIFICATION  = "en_IN";
-    LC_MEASUREMENT     = "en_IN";
-    LC_MONETARY        = "en_IN";
-    LC_NAME            = "en_IN";
-    LC_NUMERIC         = "en_IN";
-    LC_PAPER           = "en_IN";
-    LC_TELEPHONE       = "en_IN";
-    LC_TIME            = "en_IN";
+    LC_ADDRESS = "en_IN";
+    LC_IDENTIFICATION = "en_IN";
+    LC_MEASUREMENT = "en_IN";
+    LC_MONETARY = "en_IN";
+    LC_NAME = "en_IN";
+    LC_NUMERIC = "en_IN";
+    LC_PAPER = "en_IN";
+    LC_TELEPHONE = "en_IN";
+    LC_TIME = "en_IN";
   };
 
   services.xserver.enable = true;
@@ -50,6 +49,7 @@
   services.xserver.xkb = {
     layout = "us";
     variant = "";
+    options = "ctrl:nocaps";
   };
 
   services.printing.enable = true;
@@ -73,13 +73,7 @@
     isNormalUser = true;
     description = "Rithul Kamesh";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      obsidian
-      vivaldi
-      ghostty
-      neofetch
-      zathura
-    ];
+    packages = with pkgs; [ obsidian vivaldi ghostty neofetch zathura ];
   };
 
   programs.firefox.enable = false;
@@ -91,6 +85,7 @@
     git
     zip
     fzf
+
     gnupg
     pinentry-curses
     zsh
@@ -100,7 +95,15 @@
     cmake
     go
     rustup
-    vscode  # Visual Studio Code
+    vscode # Visual Studio Code
+    python312
+    python312Packages.pip
+    uv
+    nodejs_20
+
+    pkg-config
+    nixfmt-rfc-style
+    home-manager
   ];
 
   services.pcscd.enable = true;
@@ -110,8 +113,13 @@
     enableSSHSupport = true;
   };
 
+  environment.shellInit = ''
+    export LD_LIBRARY_PATH="${
+      pkgs.lib.makeLibraryPath [ pkgs.fzf ]
+    }:$LD_LIBRARY_PATH"
+  '';
+
   services.openssh.enable = true;
 
   system.stateVersion = "24.11";
 }
-
