@@ -91,7 +91,7 @@
       vivaldi
       ghostty
       neofetch
-      zathura
+
     ];
   };
 

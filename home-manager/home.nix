@@ -14,9 +14,13 @@
     bun
     pyenv
     direnv
+    zathura
   ];
 
-  imports = [ ./shell.nix ];
+  imports = [
+    ./shell.nix
+    ./zathura.nix
+  ];
 
   programs.direnv = {
     enable = true;
