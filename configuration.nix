@@ -19,9 +19,18 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  # Use rEFInd as the EFI boot manager instead of systemd-boot
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot";
+    };
+    grub = {
+      enable = true;
+      devices = [ "nodev" ];
+      efiSupport = true;
+      useOSProber = true;
+    };
+  };
 
   networking.hostName = "sora";
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -125,6 +134,7 @@
     pkg-config
     nixfmt-rfc-style
     home-manager
+    os-prober
   ];
 
   services.pcscd.enable = true;
