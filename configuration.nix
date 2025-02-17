@@ -87,7 +87,17 @@
   };
 
   programs.firefox.enable = false;
+  users.defaultUserShell = pkgs.zsh;
+  programs.zsh.enable = true;
   nixpkgs.config.allowUnfree = true;
+
+  fonts = {
+    packages = with pkgs; [
+      jetbrains-mono
+      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+    ];
+    fontconfig.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     neovim
