@@ -89,7 +89,6 @@
     packages = with pkgs; [
       obsidian
       vivaldi
-      ghostty
       neofetch
 
     ];

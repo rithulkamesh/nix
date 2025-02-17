@@ -21,6 +21,7 @@
   imports = [
     ./shell.nix
     ./zathura.nix
+    ./ghostty.nix
   ];
 
   programs.direnv = {
