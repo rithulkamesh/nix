@@ -118,7 +118,6 @@
     gnupg
     pinentry-curses
     zsh
-    eza
     # Build tools for C/C++, Go, Rust, etc.
     gcc
     clang
