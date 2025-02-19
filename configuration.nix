@@ -19,7 +19,7 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   boot.loader = {
     efi = {
