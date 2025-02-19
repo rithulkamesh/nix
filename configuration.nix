@@ -19,6 +19,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
@@ -123,6 +125,7 @@
     gcc
     clang
     cmake
+    gnumake
     go
     rustup
     vscode # Visual Studio Code
@@ -146,6 +149,17 @@
   ];
 
   services.pcscd.enable = true;
+
+  services.asusd = {
+    enable = true;
+    enableUserService = true;
+  };
+
+  programs.rog-control-center = {
+    enable = true;
+    autoStart = true;
+  };
+  services.supergfxd.enable = true;
 
   programs.gnupg.agent = {
     enable = true;
