@@ -20,13 +20,15 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Uncomment the following if you experience graphical corruption or crashes after sleep:
-    # powerManagement.enable = false;
-    # powerManagement.finegrained = true;
-    # prime.offload.enable = true;
+    powerManagement.enable = true;
+    powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
+    prime = {
+      sync.enable = true;
+      nvidiaBusId = "PCI:1:0:1";
+      amdgpuBusId = "PCI:102:0:1";
+    };
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
@@ -136,6 +138,7 @@
       vivaldi
       neofetch
       discord
+      spotify
     ];
   };
 
