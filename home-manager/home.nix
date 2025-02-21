@@ -16,6 +16,7 @@
     direnv
     zathura
     gh
+    insomnia
   ];
 
   imports = [
