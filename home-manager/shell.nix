@@ -79,6 +79,7 @@
       # Bun setup
       export BUN_INSTALL="$HOME/.bun"
       export PATH="$BUN_INSTALL/bin:$PATH"
+      export NIXPKGS_ALLOW_UNFREE=1
 
       # ESP setup
       if [ -f ~/.zsh/espup_completions.zsh ]; then
@@ -95,6 +96,8 @@
       if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then 
         source '$HOME/google-cloud-sdk/completion.zsh.inc'
       fi
+
+      export QT_QPA_PLATFORM_PLUGIN_PATH="${qt5.qtbase.bin}/lib/qt-${qt5.qtbase.version}/plugins/platforms";
     '';
   };
 }

@@ -36,7 +36,6 @@
       font-size = 11
 
       background-opacity = 0.9
-      window-decoration = false
       background-blur-radius = 35
       title = "👻"
     '';

@@ -92,16 +92,19 @@
   # Desktop Environment
   ###########################################
 
-  # X11 and GNOME configuration
+  # X11 and Plasma configuration
   services.xserver = {
     enable = true;
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
     xkb = {
       layout = "us";
       variant = "";
       options = "ctrl:nocaps";
     };
+  };
+
+  services = {
+    displayManager.sddm.enable = true;
+    desktopManager.plasma6.enable = true;
   };
 
   ###########################################
@@ -169,7 +172,9 @@
     wget
     git
     zip
+    unzip
     fzf
+    qt5.qtbase
 
     # Development tools
     gnupg

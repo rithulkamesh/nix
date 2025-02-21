@@ -17,6 +17,7 @@
     zathura
     gh
     insomnia
+    firefox
   ];
 
   imports = [
