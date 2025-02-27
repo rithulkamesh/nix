@@ -14,7 +14,7 @@
   imports = [
     ./hardware-configuration.nix
     ../common/core
-    ./graphics
+    ./graphics.nix
   ];
 
   # Kernel packages
@@ -83,7 +83,7 @@
   fonts = {
     packages = with pkgs; [
       jetbrains-mono
-      (nerdfonts.override { fonts = [ "FiraCode" ]; })
+      pkgs.nerd-fonts.fira-code
     ];
     fontconfig.enable = true;
   };

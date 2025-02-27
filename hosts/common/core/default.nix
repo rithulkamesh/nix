@@ -11,7 +11,7 @@
     ./plasma.nix
     ./audio.nix
 
-  ] ++ (builtins.attrValues outputs.nixosModules);
+  ];
 
   security.sudo.extraConfig = ''
     Defaults timestamp_timeout=120 # only ask for password every 2h
@@ -28,7 +28,6 @@
   users.defaultUserShell = pkgs.zsh;
 
   nixpkgs = {
-    overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
     };

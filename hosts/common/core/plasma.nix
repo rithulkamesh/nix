@@ -10,13 +10,17 @@
 # included in systems that require a graphical desktop environment.
 { ... }:
 {
-  services.xserver = {
-    enable = true;
-    xkb = {
-      layout = "us";
-      options = "ctrl:nocaps";
-    };
+  services = {
     displayManager.sddm.enable = true;
     desktopManager.plasma6.enable = true;
+
+    xserver = {
+      enable = true;
+      xkb = {
+        layout = "us";
+        options = "ctrl:nocaps";
+      };
+
+    };
   };
 }

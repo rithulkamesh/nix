@@ -13,7 +13,7 @@
 
 {
   # Disable PulseAudio in favor of PipeWire
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
 
   # Enable RealtimeKit to allow PipeWire to operate with realtime privileges
   security.rtkit.enable = true;
