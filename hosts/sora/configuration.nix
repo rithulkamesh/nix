@@ -146,19 +146,6 @@
   # Smart card support
   services.pcscd.enable = true;
 
-  # ASUS-specific services
-  services.asusd = {
-    enable = true;
-    enableUserService = true;
-  };
-
-  # ROG laptop specific configuration
-  programs.rog-control-center = {
-    enable = true;
-    autoStart = true;
-  };
-  services.supergfxd.enable = true;
-
   # GPG agent configuration
   programs.gnupg.agent = {
     enable = true;

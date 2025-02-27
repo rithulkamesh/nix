@@ -1,7 +1,9 @@
 {
   inputs,
-  outputs,
+  lib,
   pkgs,
+  config,
+  outputs,
   ...
 }:
 {
@@ -10,7 +12,7 @@
     ./locale.nix
     ./plasma.nix
     ./audio.nix
-
+    ./direnv.nix
   ];
 
   security.sudo.extraConfig = ''
@@ -24,12 +26,14 @@
     inherit inputs outputs;
   };
 
+  nix = {
+    package = lib.mkDefault pkgs.nix;
+    settings = {
+      warn-dirty = false;
+    };
+  };
+
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
-  nixpkgs = {
-    config = {
-      allowUnfree = true;
-    };
-  };
 }
