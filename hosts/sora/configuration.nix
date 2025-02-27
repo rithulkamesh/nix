@@ -91,7 +91,14 @@
   # System packages
   environment.systemPackages = with pkgs; [
     # Basic utilities
-    neovim
+    (neovim.override {
+      extraMakeWrapperArgs = ''--prefix PATH : "${
+        lib.makeBinPath [
+          pkgs.gcc
+          pkgs.gnumake
+        ]
+      }"'';
+    })
     wget
     git
     zip
