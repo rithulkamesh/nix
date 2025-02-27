@@ -10,7 +10,7 @@ echo "Setting up Nix configuration..."
 # Create symlink for home-manager config
 if [ ! -L "$CONFIG_DIR" ]; then
     echo "Creating home-manager symlink..."
-    ln -s "$(pwd)/home-manger" "$CONFIG_DIR"
+    ln -s "$(pwd)/home/rkamesh" "$CONFIG_DIR"
 else
     echo "Home-manager symlink already exists"
 fi
