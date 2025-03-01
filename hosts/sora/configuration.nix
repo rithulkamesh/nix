@@ -9,12 +9,6 @@
   ...
 }:
 {
-  nixpkgs.overlays = [
-    (self: super: {
-      qt5 = super.qt5;
-      libsForQt5 = super.libsForQt5;
-    })
-  ];
 
   imports = [
     ./hardware-configuration.nix
@@ -36,6 +30,7 @@
       devices = [ "nodev" ];
       efiSupport = true;
       useOSProber = true;
+      default = "saved";
     };
   };
 
@@ -112,10 +107,7 @@
     fzf
     libsForQt5.qt5.qtwayland
     qt5.qtbase
-
-    (vivaldi.override {
-      commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
-    })
+    vivaldi
 
     # Development tools
     gnupg
@@ -168,6 +160,7 @@
     enable = true;
     enableSSHSupport = true;
   };
+  programs.nix-ld.enable = true;
 
   # Library path configuration
   environment.shellInit = ''
