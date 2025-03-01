@@ -11,9 +11,9 @@
 {
 
   imports = [
+    ./graphics.nix
     ./hardware-configuration.nix
     ../common/core
-    ./graphics.nix
   ];
 
   # Kernel packages

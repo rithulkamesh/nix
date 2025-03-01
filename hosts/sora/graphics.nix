@@ -40,11 +40,12 @@
       sync.enable = true;
 
       # PCI bus IDs for the NVIDIA and AMD GPUs
-      nvidiaBusId = "PCI:1:0:1";
-      amdgpuBusId = "PCI:102:0:1";
+      nvidiaBusId = "PCI:1:0:0";
+      amdgpuBusId = "PCI:66:0:0";
     };
 
     # Use the stable NVIDIA driver package that matches the current kernel
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+    forceFullCompositionPipeline = false;
   };
 }
