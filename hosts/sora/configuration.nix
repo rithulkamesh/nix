@@ -1,7 +1,6 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running 'nixos-help').
-
 {
   inputs,
   outputs,
@@ -9,8 +8,14 @@
   pkgs,
   ...
 }:
-
 {
+  nixpkgs.overlays = [
+    (self: super: {
+      qt5 = super.qt5;
+      libsForQt5 = super.libsForQt5;
+    })
+  ];
+
   imports = [
     ./hardware-configuration.nix
     ../common/core
@@ -56,7 +61,7 @@
     ];
     packages = with pkgs; [
       obsidian
-      vivaldi
+
       neofetch
       discord
       spotify
@@ -69,6 +74,7 @@
       gh
       insomnia
       firefox
+      wl-clipboard-rs
     ];
   };
 
@@ -104,7 +110,12 @@
     zip
     unzip
     fzf
+    libsForQt5.qt5.qtwayland
     qt5.qtbase
+
+    (vivaldi.override {
+      commandLineArgs = "--enable-features=UseOzonePlatform --ozone-platform=wayland";
+    })
 
     # Development tools
     gnupg
@@ -149,7 +160,6 @@
 
   # Enable printing support
   services.printing.enable = true;
-
   # Smart card support
   services.pcscd.enable = true;
 

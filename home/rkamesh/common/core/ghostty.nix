@@ -1,6 +1,8 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     ghostty
   ];
@@ -35,8 +37,8 @@
       font-family = "JetBrains Mono"
       font-size = 11
 
-      background-opacity = 0.9
-      background-blur-radius = 35
+      background-opacity = 0.87
+      background-blur-radius = 20
       title = "👻"
     '';
   };

@@ -10,7 +10,7 @@
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./locale.nix
-    ./plasma.nix
+    ./desktop.nix
     ./audio.nix
     ./direnv.nix
   ];
