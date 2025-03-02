@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
@@ -14,7 +15,12 @@
         "HDMI-1,3840x2160,-3840x0,1.5" # 4K monitor to the left with 1.5x scaling
         "eDP-1,preferred,0x0,1" # Laptop display
       ];
-
+      bindl = [
+        # When lid is closed, disable internal display
+        ",switch:on:Lid Switch,exec,hyprctl keyword monitor eDP-1,disable"
+        # When lid is opened, enable internal display
+        ",switch:off:Lid Switch,exec,hyprctl keyword monitor eDP-1,preferred,0x0,1"
+      ];
       # Input settings
       input = {
         kb_layout = "us";

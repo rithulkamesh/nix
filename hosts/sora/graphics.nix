@@ -56,7 +56,7 @@
     enable = true;
     extraGSettingsOverrides = ''
       [org.gnome.mutter]
-      experimental-features=['x11-randr-fractional-scaling']
+      experimental-features=[]
     '';
   };
 

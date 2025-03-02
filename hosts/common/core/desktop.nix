@@ -1,6 +1,9 @@
 # This module configures desktop environments.
-{ lib, pkgs, ... }:
 {
+  lib,
+  pkgs,
+  ...
+}: {
   #
   # GNOME Desktop Environment Configuration
   #
@@ -18,7 +21,6 @@
       wayland = true;
     };
 
-    enable = true;
     xkb = {
       layout = "us";
       options = "ctrl:nocaps";
@@ -40,10 +42,10 @@
   # - Hardware acceleration support
   # - Default XDG desktop portal
   #
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
+  # programs.hyprland = {
+  #   enable = true;
+  #   xwayland.enable = true;
+  # };
 
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
@@ -52,6 +54,6 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }

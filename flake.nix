@@ -8,55 +8,50 @@
     ghostty.url = "github:ghostty-org/ghostty";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    matugen.url = "github:/InioX/Matugen";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      systems,
-      ...
-    }@inputs:
-    let
-      inherit (self) outputs;
-      lib = nixpkgs.lib // home-manager.lib;
-      forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
-      pkgsFor = lib.genAttrs (import systems) (
-        system:
+  outputs = {
+    self,
+    nixpkgs,
+    home-manager,
+    systems,
+    ...
+  } @ inputs: let
+    inherit (self) outputs;
+    lib = nixpkgs.lib // home-manager.lib;
+    forEachSystem = f: lib.genAttrs (import systems) (system: f pkgsFor.${system});
+    pkgsFor = lib.genAttrs (import systems) (
+      system:
         import nixpkgs {
           inherit system;
           config.allowUnfree = true;
         }
-      );
-    in
-    {
+    );
+  in {
+    formatter = forEachSystem (pkgs: pkgs.alejandra);
 
-      formatter = forEachSystem (pkgs: pkgs.alejandra);
-
-      nixosConfigurations = {
-        sora = lib.nixosSystem {
-          specialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [
-            ./hosts/sora/configuration.nix
-          ];
+    nixosConfigurations = {
+      sora = lib.nixosSystem {
+        specialArgs = {
+          inherit inputs outputs;
         };
-      };
-
-      homeConfigurations = {
-        "rkamesh@sora" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgsFor.x86_64-linux;
-          extraSpecialArgs = {
-            inherit inputs outputs;
-          };
-          modules = [
-            ./home/rkamesh/sora.nix
-            ./home/rkamesh/nixpkgs.nix
-          ];
-        };
+        modules = [
+          ./hosts/sora/configuration.nix
+        ];
       };
     };
+
+    homeConfigurations = {
+      "rkamesh@sora" = home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgsFor.x86_64-linux;
+        extraSpecialArgs = {
+          inherit inputs outputs;
+        };
+        modules = [
+          ./home/rkamesh/sora.nix
+          ./home/rkamesh/nixpkgs.nix
+        ];
+      };
+    };
+  };
 }
