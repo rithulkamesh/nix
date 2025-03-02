@@ -5,5 +5,6 @@
     ./common/core/ghostty.nix
     ./common/core/zsh.nix
     ./common/optional/zathura.nix
+    ./common/wm/hypr
   ];
 }

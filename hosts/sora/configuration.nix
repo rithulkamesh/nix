@@ -145,12 +145,6 @@
     vulkan-tools
     lutris
 
-    # Hyprland
-    eww
-    dunst
-    libnotify
-    rofi-wayland
-    inputs.matugen.packages.${system}.default
   ];
 
   ###########################################
