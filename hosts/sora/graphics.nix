@@ -26,7 +26,7 @@
 
     # Enable power management features
     powerManagement.enable = true;
-    powerManagement.finegrained = false;
+    powerManagement.finegrained = true;
 
     # Use the proprietary drivers instead of open source ones
     open = false;
@@ -36,8 +36,9 @@
 
     # PRIME configuration for hybrid graphics (NVIDIA + AMD)
     prime = {
+      offload.enable = true;
       # Enable PRIME sync for tear-free rendering
-      sync.enable = true;
+      sync.enable = false;
 
       # PCI bus IDs for the NVIDIA and AMD GPUs
       nvidiaBusId = "PCI:1:0:0";
@@ -46,6 +47,21 @@
 
     # Use the stable NVIDIA driver package that matches the current kernel
     package = config.boot.kernelPackages.nvidiaPackages.stable;
-    forceFullCompositionPipeline = false;
+    forceFullCompositionPipeline = true;
+
+  };
+
+  # Improve GNOME performance
+  services.xserver.desktopManager.gnome = {
+    enable = true;
+    extraGSettingsOverrides = ''
+      [org.gnome.mutter]
+      experimental-features=['x11-randr-fractional-scaling']
+    '';
+  };
+
+  # Optimize memory usage
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 10;
   };
 }
