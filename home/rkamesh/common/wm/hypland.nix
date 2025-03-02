@@ -1,13 +1,6 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+{ pkgs, ... }:
 
 {
-  imports = [ ];
-
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
@@ -70,12 +63,12 @@
 
       "$mod" = "SUPER";
       bind = [
-        "$mod, Return, exec, ghostty" # Use Ghostty as terminal
+        "$mod, Return, exec, ghostty"
         "$mod, Q, killactive,"
         "$mod, M, exit,"
-        "$mod, E, exec, dolphin" # File manager
+        "$mod, E, exec, dolphin"
         "$mod, V, togglefloating,"
-        "$mod, R, exec, rofi --show drun" # Application launcher
+        "$mod, R, exec, rofi --show drun"
         "$mod, P, pseudo,"
         "$mod, J, togglesplit,"
 
