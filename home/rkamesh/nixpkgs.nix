@@ -2,6 +2,7 @@
   outputs,
   lib,
   inputs,
+  pkgs,
   ...
 }:
 let
@@ -9,6 +10,7 @@ let
 in
 {
   nix = {
+    package = pkgs.nix;
     settings = {
       #extra-substituters = lib.mkAfter ["https://cache.m7.rs"];
       #extra-trusted-public-keys = ["cache.m7.rs:kszZ/NSwE/TjhOcPPQ16IuUiuRSisdiIwhKZCxguaWg="];
@@ -28,7 +30,6 @@ in
   };
 
   nixpkgs = {
-    overlays = builtins.attrValues outputs.overlays;
     config = {
       allowUnfree = true;
       allowUnfreePredicate = _: true;

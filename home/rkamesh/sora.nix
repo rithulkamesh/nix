@@ -7,4 +7,10 @@
     ./common/wm/hyprland.nix
     ./common/optional/zathura.nix
   ];
+
+  home = {
+    stateVersion = "24.11";
+    username = "rkamesh";
+    homeDirectory = "/home/rkamesh";
+  };
 }

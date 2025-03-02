@@ -96,8 +96,6 @@
       if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then 
         source '$HOME/google-cloud-sdk/completion.zsh.inc'
       fi
-
-      export QT_QPA_PLATFORM_PLUGIN_PATH="${qt5.qtbase.bin}/lib/qt-${qt5.qtbase.version}/plugins/platforms";
     '';
   };
 }

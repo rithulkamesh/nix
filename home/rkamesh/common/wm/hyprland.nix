@@ -1,6 +1,8 @@
-{ pkgs, ... }:
-
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
@@ -9,8 +11,8 @@
     settings = {
       # Monitor configuration
       monitor = [
-        "HDMI-1,3840x2160,-3840,0,1.5" # 4K monitor to the left with 1.5x scaling
-        "eDP-1,preferred,0,0,1" # Laptop display
+        "HDMI-1,3840x2160,-3840x0,1.5" # 4K monitor to the left with 1.5x scaling
+        "eDP-1,preferred,0x0,1" # Laptop display
       ];
 
       # Input settings
@@ -41,9 +43,6 @@
           size = 3;
           passes = 1;
         };
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
       };
 
       animations = {
@@ -68,7 +67,7 @@
         "$mod, M, exit,"
         "$mod, E, exec, dolphin"
         "$mod, V, togglefloating,"
-        "$mod, R, exec, rofi --show drun"
+        "$mod, D, exec, rofi -show drun"
         "$mod, P, pseudo,"
         "$mod, J, togglesplit,"
 
