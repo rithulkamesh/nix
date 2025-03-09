@@ -85,6 +85,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  services.udev.packages = with pkgs; [ platformio-core.udev ];
 
   # Font configuration
   fonts = {
