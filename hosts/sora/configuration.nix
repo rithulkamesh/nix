@@ -153,6 +153,9 @@
     vulkan-tools
     lutris
 
+    # Hardware Dev
+    kicad
+
   ];
 
   ###########################################
