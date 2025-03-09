@@ -16,6 +16,10 @@
     ../common/core
   ];
 
+  virtualisation.docker = {
+    enable = true;
+  };
+
   # Kernel packages
   boot.kernelPackages = pkgs.linuxPackages;
 
@@ -53,6 +57,7 @@
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     packages = with pkgs; [
       obsidian
@@ -108,6 +113,7 @@
     libsForQt5.qt5.qtwayland
     qt5.qtbase
     vivaldi
+    vlc
 
     # Development tools
     gnupg
