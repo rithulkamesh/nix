@@ -13,7 +13,6 @@ with lib; {
     desktopManager.xterm.enable = false;
 
     displayManager.lightdm = {
-      enable = true;
       autoLogin.enable = true;
       autoLogin.user = "rkamesh";
     };

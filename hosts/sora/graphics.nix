@@ -2,15 +2,12 @@
 #
 # This module configures graphics hardware support with a focus on NVIDIA GPU configuration.
 # It sets up the NVIDIA drivers and configures hybrid graphics (NVIDIA + AMD) with PRIME sync.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
-
-{
+}: {
   ###########################################
   # Boot and Hardware Configuration
   ###########################################
@@ -19,7 +16,8 @@
   hardware.graphics.enable = true;
 
   # NVIDIA driver configuration
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.displayManager.lightdm.enable = true;
   hardware.nvidia = {
     # Enable kernel modesetting for better Wayland compatibility
     modesetting.enable = true;
@@ -48,7 +46,6 @@
     # Use the stable NVIDIA driver package that matches the current kernel
     package = config.boot.kernelPackages.nvidiaPackages.stable;
     forceFullCompositionPipeline = true;
-
   };
 
   # Improve GNOME performance
