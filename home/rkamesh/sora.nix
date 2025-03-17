@@ -2,9 +2,9 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
+    ./common/core/bspwn.nix
     ./common/core/ghostty.nix
     ./common/core/zsh.nix
     # ./common/wm/hyprland.nix

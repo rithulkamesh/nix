@@ -10,17 +10,12 @@
   # This section enables GNOME with the following features:
   # - X11 server with US keyboard layout
   # - Remaps Caps Lock key to function as a Control key
-  # - GDM as the display manager
+  # - LightDM as the display manager
   # - Latest GNOME as the desktop environment
   # - Wayland session support
   #
   services.xserver = {
     desktopManager.gnome.enable = true;
-    displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
-
     xkb = {
       layout = "us";
       options = "ctrl:nocaps";
