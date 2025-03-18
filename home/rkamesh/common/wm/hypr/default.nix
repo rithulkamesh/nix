@@ -1,3 +1,6 @@
 {...}: {
-  imports = [./wall.nix];
+  imports = [
+    ./wall.nix
+    ./dunst.nix
+  ];
 }
