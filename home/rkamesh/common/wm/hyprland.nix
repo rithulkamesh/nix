@@ -2,8 +2,9 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
+  imports = [./hypr];
+
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
@@ -29,16 +30,16 @@
         touchpad = {
           natural_scroll = true;
         };
+        kb_options = "ctrl:nocaps";
       };
 
       # General settings
       general = {
-        gaps_in = 5;
+        gaps_in = 3;
         gaps_out = 10;
         border_size = 2;
-        "col.active_border" = "rgba(33ccffee)";
-        "col.inactive_border" = "rgba(595959aa)";
         layout = "dwindle";
+        resize_on_border = true;
       };
 
       # Decoration settings
@@ -68,6 +69,10 @@
 
       "$mod" = "SUPER";
       bind = [
+        # General Volume/Key Binds
+        ",XF86MonBrightnessUp, exec, brightnessctl set 10%+"
+        ",XF86MonBrightnessDown, exec, brightnessctl set 10%-"
+        # Key based Binds
         "$mod, Return, exec, ghostty"
         "$mod, Q, killactive,"
         "$mod, M, exit,"
@@ -111,8 +116,16 @@
       ];
 
       exec-once = [
-        "eww"
+        "waybar"
         "dunst"
+        "caa -d"
+        "hyprpaper"
+      ];
+
+      env = [
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "QT_QPA_PLATFORMTHEME,qt6ct"
       ];
     };
   };
@@ -122,10 +135,13 @@
   };
 
   home.packages = with pkgs; [
-    eww
+    waybar
+    hyprlock
+    hyprpaper
     dunst
     libnotify
     rofi-wayland
     inputs.matugen.packages.${system}.default
+    brightnessctl
   ];
 }

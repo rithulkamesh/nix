@@ -17,7 +17,9 @@
 
   # NVIDIA driver configuration
   services.xserver.videoDrivers = ["nvidia"];
-  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+
+  services.xserver.enable = true;
   hardware.nvidia = {
     # Enable kernel modesetting for better Wayland compatibility
     modesetting.enable = true;

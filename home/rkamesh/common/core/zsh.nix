@@ -1,13 +1,15 @@
-{ config, pkgs, ... }:
-
 {
+  config,
+  pkgs,
+  ...
+}: {
   programs.zsh = {
     enable = true;
 
     oh-my-zsh = {
       enable = true;
       theme = "agnoster";
-      plugins = [ "git" ];
+      plugins = ["git"];
     };
 
     # Additional plugins not in oh-my-zsh
@@ -90,10 +92,10 @@
       fi
 
       # Google Cloud SDK
-      if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then 
+      if [ -f '$HOME/google-cloud-sdk/path.zsh.inc' ]; then
         source '$HOME/google-cloud-sdk/path.zsh.inc'
       fi
-      if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then 
+      if [ -f '$HOME/google-cloud-sdk/completion.zsh.inc' ]; then
         source '$HOME/google-cloud-sdk/completion.zsh.inc'
       fi
     '';

@@ -8,6 +8,9 @@
     ghostty.url = "github:ghostty-org/ghostty";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    matugen.url = "github:/InioX/Matugen";
+    hyprland.url = "github:hyprwm/hyprland";
+    hyprpaper.url = "github:hyprwm/hyprpaper";
   };
 
   outputs = {
