@@ -143,7 +143,6 @@
 
   home.packages = with pkgs; [
     # Necessary Utilities
-    waybar
     hyprlock
     xfce.thunar
     pavucontrol
