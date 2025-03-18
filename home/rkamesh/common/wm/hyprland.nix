@@ -40,6 +40,8 @@
         border_size = 2;
         layout = "dwindle";
         resize_on_border = true;
+        "col.active_border" = "0xffa3e49f 0xff63b2b8 0xff82599c 45deg";
+        "col.inactive_border" = "0xff6e738d";
       };
 
       # Decoration settings
@@ -144,6 +146,7 @@
     waybar
     hyprlock
     xfce.thunar
+    pavucontrol
 
     # Theming
     hyprpaper
@@ -156,6 +159,7 @@
     # XF86 Bind Tools
     pw-volume
     brightnessctl
+
     # Searcher
     rofi-wayland
 
