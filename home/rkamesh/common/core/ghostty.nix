@@ -15,7 +15,11 @@
       font-family = "JetBrains Mono"
       font-size = 11
 
-      background-opacity = 0.87
+      window-padding-x = 10
+      window-padding-y = 10
+      window-padding-balance = true
+
+      background-opacity = 0.97
       background-blur-radius = 45
       title = "👻"
     '';
