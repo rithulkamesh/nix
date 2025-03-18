@@ -47,8 +47,8 @@
         rounding = 10;
         blur = {
           enabled = true;
-          size = 3;
-          passes = 1;
+          size = 5;
+          passes = 2;
         };
       };
 
@@ -72,9 +72,14 @@
         # General Volume/Key Binds
         ",XF86MonBrightnessUp, exec, brightnessctl set 10%+"
         ",XF86MonBrightnessDown, exec, brightnessctl set 10%-"
+
+        ",XF86AudioMute, exec, pw-volume mute toggle; pkill -RTMIN+8 waybar"
+        ",XF86AudioRaiseVolume, exec, pw-volume change +5%; pkill -RTMIN+8 waybar"
+        ",XF86AudioLowerVolume, exec, pw-volume change -5%; pkill -RTMIN+8 waybar"
+
         # Key based Binds
         "$mod, Return, exec, ghostty"
-        "$mod, Q, killactive,"
+        "$mod SHIFT, Q, killactive,"
         "$mod, M, exit,"
         "$mod, E, exec, dolphin"
         "$mod, V, togglefloating,"
@@ -135,13 +140,27 @@
   };
 
   home.packages = with pkgs; [
+    # Necessary Utilities
     waybar
     hyprlock
+    xfce.thunar
+
+    # Theming
     hyprpaper
+    inputs.matugen.packages.${system}.default
+
+    # Notifications
     dunst
     libnotify
-    rofi-wayland
-    inputs.matugen.packages.${system}.default
+
+    # XF86 Bind Tools
+    pw-volume
     brightnessctl
+    # Searcher
+    rofi-wayland
+
+    # GTK Themes
+    nwg-look
+    tokyonight-gtk-theme
   ];
 }

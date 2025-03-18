@@ -3,15 +3,20 @@
 # This module configures audio for the system using PipeWire instead of PulseAudio.
 # PipeWire provides better compatibility with various audio systems and applications
 # while offering improved performance and stability.
-
 {
   config,
   lib,
   pkgs,
   ...
-}:
+}: {
+  hardware = {
+    pulseaudio = {
+      enable = false;
+      extraModules = [pkgs.pulseaudio-modules-bt];
+    };
+    bluetooth = {enable = true;};
+  };
 
-{
   # Disable PulseAudio in favor of PipeWire
   services.pulseaudio.enable = false;
 
