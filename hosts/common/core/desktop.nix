@@ -3,8 +3,7 @@
   lib,
   pkgs,
   ...
-}:
-{
+}: {
   #
   # GNOME Desktop Environment Configuration
   #
@@ -44,11 +43,12 @@
   };
 
   environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "0";
     NIXOS_OZONE_WL = "1";
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
 }

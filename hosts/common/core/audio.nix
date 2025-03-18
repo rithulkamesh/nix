@@ -9,14 +9,6 @@
   pkgs,
   ...
 }: {
-  hardware = {
-    pulseaudio = {
-      enable = false;
-      extraModules = [pkgs.pulseaudio-modules-bt];
-    };
-    bluetooth = {enable = true;};
-  };
-
   # Disable PulseAudio in favor of PipeWire
   services.pulseaudio.enable = false;
 
