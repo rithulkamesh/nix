@@ -10,11 +10,11 @@
       ipc = "off";
       splash = false;
       preload = [
-        "~/Pictures/tyn-wall.png"
+        "~/Pictures/wall_mtn.jpg"
       ];
 
       wallpaper = [
-        ",~/Pictures/tyn-wall.png"
+        ",~/Pictures/wall_mtn.jpg"
       ];
     };
   };

@@ -16,7 +16,7 @@
       font-size = 11
 
       window-padding-x = 10
-      window-padding-y = 10
+      window-padding-y = 5
       window-padding-balance = true
 
       background-opacity = 0.97

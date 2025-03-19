@@ -4,5 +4,6 @@
     ./dunst.nix
     ./matugen.nix
     ./waybar.nix
+    ./hyprlock.nix
   ];
 }

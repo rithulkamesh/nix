@@ -10,8 +10,8 @@
         follow = "mouse";
 
         ### Geometry ###
-        width = 400;
-        height = 200;
+        width = 300; # Changed from 200 to better fit content
+        height = 80; # Reduced from 100
         origin = "top-right";
         offset = "15x65";
         scale = 0;
@@ -19,25 +19,25 @@
 
         ### Progress bar ###
         progress_bar = true;
-        progress_bar_height = 10;
+        progress_bar_height = 8; # Reduced from 10
         progress_bar_frame_width = 0;
-        progress_bar_min_width = 350;
-        progress_bar_max_width = 400;
+        progress_bar_min_width = 250; # Reduced from 350
+        progress_bar_max_width = 300; # Reduced from 400
 
         indicate_hidden = "yes";
         transparency = 0;
         separator_height = 2;
-        padding = 12;
-        horizontal_padding = 15;
+        padding = 8; # Reduced from 12
+        horizontal_padding = 10; # Reduced from 15
         text_icon_padding = 0;
-        frame_width = 2;
+        frame_width = 1; # Reduced from 2
         frame_color = "#1bd5ab";
-        gap_size = 5;
+        gap_size = 3; # Reduced from 5
         separator_color = "auto";
         sort = "yes";
 
         ### Text ###
-        font = "FiraCode Nerd Font 16";
+        font = "FiraCode Nerd Font 10"; # Reduced from 16
         line_height = 0;
         markup = "full";
         format = "<b>%s</b>\n<span size=\"small\">%b</span>";
@@ -52,8 +52,8 @@
 
         ### Icons ###
         icon_position = "left";
-        min_icon_size = 32;
-        max_icon_size = 64;
+        min_icon_size = 24; # Reduced from 32
+        max_icon_size = 48; # Reduced from 64
         icon_path = "/usr/share/icons/gnome/128x128/status/:/usr/share/icons/gnome/128x128/devices/";
         icon_theme = "Papirus, Adwaita";
         enable_recursive_icon_lookup = true;
@@ -68,7 +68,7 @@
         always_run_script = true;
         title = "Dunst";
         class = "Dunst";
-        corner_radius = 10;
+        corner_radius = 8; # Reduced from 10
         ignore_dbusclose = false;
 
         ### Wayland ###

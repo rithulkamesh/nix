@@ -35,9 +35,9 @@
 
       # General settings
       general = {
-        gaps_in = 3;
+        gaps_in = 5;
         gaps_out = 10;
-        border_size = 2;
+        border_size = 1;
         layout = "dwindle";
         resize_on_border = true;
         "col.active_border" = "0xffa3e49f 0xff63b2b8 0xff82599c 45deg";
@@ -123,7 +123,6 @@
       ];
 
       exec-once = [
-        "waybar"
         "dunst"
         "caa -d"
         "hyprpaper"
