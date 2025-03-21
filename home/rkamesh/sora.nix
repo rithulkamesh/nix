@@ -9,6 +9,7 @@
     ./common/core/zsh.nix
     ./common/wm/hyprland.nix
     ./common/optional/zathura.nix
+    ./common/optional/spicetify.nix
   ];
 
   home = {
