@@ -126,6 +126,7 @@
         "dunst"
         "caa -d"
         "hyprpaper"
+        "gnome-keyring-daemon -s"
       ];
 
       env = [
