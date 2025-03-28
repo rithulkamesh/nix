@@ -1,10 +1,7 @@
-{ lib, ... }:
-{
-
+{lib, ...}: {
   # Time zone and hardware clock settings
   time = {
     timeZone = "Asia/Kolkata";
-    hardwareClockInLocalTime = true;
   };
 
   # Locale settings
@@ -22,5 +19,4 @@
       LC_TIME = "en_IN";
     };
   };
-
 }

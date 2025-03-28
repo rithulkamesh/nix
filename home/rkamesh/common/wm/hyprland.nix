@@ -13,9 +13,20 @@
     settings = {
       # Monitor configuration
       monitor = [
-        "HDMI-1,3840x2160,-3840x0,1.5" # 4K monitor to the left with 1.5x scaling
+        "HDMI-A-1,preferred,-2560x-400,1.5"
         "eDP-1,preferred,0x0,1" # Laptop display
       ];
+
+      # Nvidia-specific optimizations
+      misc = {
+        vfr = true;
+        vrr = 0;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        force_default_wallpaper = 0;
+      };
       bindl = [
         # When lid is closed, disable internal display
         ",switch:on:Lid Switch,exec,hyprctl keyword monitor eDP-1,disable"
@@ -78,6 +89,17 @@
         ",XF86AudioMute, exec, pw-volume mute toggle; pkill -RTMIN+8 waybar"
         ",XF86AudioRaiseVolume, exec, pw-volume change +5%; pkill -RTMIN+8 waybar"
         ",XF86AudioLowerVolume, exec, pw-volume change -5%; pkill -RTMIN+8 waybar"
+        ",XF86AudioPlay, exec, playerctl play-pause"
+        ",XF86AudioPause, exec, playerctl play-pause"
+        ",XF86AudioNext, exec, playerctl next"
+        ",XF86AudioPrev, exec, playerctl previous"
+
+        # Screenshot bindings
+        ", Print, exec, grimblast copy area"
+        "$mod SHIFT, S, exec, grimblast copy area"
+
+        # Lock screen binding
+        "$mod ALT, L, exec, hyprlock"
 
         # Key based Binds
         "$mod, Return, exec, ghostty"
@@ -133,6 +155,17 @@
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         "QT_QPA_PLATFORMTHEME,qt6ct"
+        "WLR_NO_HARDWARE_CURSORS,1"
+        "XCURSOR_SIZE,24"
+        "HYPRLAND_LOG_WLR,1"
+        "GBM_BACKEND,nvidia-drm"
+        "NVIDIA_FORCE_PROBE,1"
+        "__NV_PRIME_RENDER_OFFLOAD,1"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "__NV_PRIME_RENDER_OFFLOAD_PROVIDER,NVIDIA-G0"
+        "__GL_GSYNC_ALLOWED,0"
+        "__GL_VRR_ALLOWED,0"
+        "NVD_BACKEND,direct"
       ];
     };
   };
@@ -147,6 +180,11 @@
     xfce.thunar
     pavucontrol
 
+    # Screenshot tools
+    grim
+    slurp
+    grimblast
+
     # Theming
     hyprpaper
     inputs.matugen.packages.${system}.default
@@ -158,6 +196,7 @@
     # XF86 Bind Tools
     pw-volume
     brightnessctl
+    playerctl
 
     # Searcher
     rofi-wayland

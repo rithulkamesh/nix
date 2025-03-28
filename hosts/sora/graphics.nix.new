@@ -1,0 +1,109 @@
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
+  ###########################################
+  # Graphics and Hardware Configuration
+  ###########################################
+
+  services.xserver.videoDrivers = ["nvidia"];
+
+  # Enhanced graphics support
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+      extraPackages = with pkgs; [
+        nvidia-vaapi-driver
+        libva
+      ];
+    };
+
+    # Comprehensive NVIDIA configuration
+    nvidia = {
+      # Enable kernel modesetting for Wayland compatibility
+      modesetting.enable = true;
+
+      # Power management
+      powerManagement = {
+        enable = true;
+        finegrained = true;
+      };
+
+      # Driver settings
+      open = false; # Proprietary drivers
+      nvidiaSettings = true;
+
+      # Use the latest stable driver package
+      package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+      # PRIME configuration for hybrid graphics
+      prime = {
+        # Enable GPU offloading
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+
+        # Sync mode for potentially smoother rendering
+        sync.enable = false;
+
+        # Specific bus IDs for NVIDIA and AMD GPUs
+        nvidiaBusId = "PCI:1:0:0";
+        amdgpuBusId = "PCI:66:0:0";
+      };
+
+      # Composition pipeline for reduced screen tearing
+      forceFullCompositionPipeline = true;
+    };
+  };
+
+  # Additional kernel parameters for NVIDIA
+  boot = {
+    kernelParams = [
+      "nvidia-drm.modeset=1"
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    ];
+    extraModprobeConfig = ''
+      options bbswitch load_state=-1 unload_state=1 nvidia-drm
+    '';
+    blacklistedKernelModules = [
+      "nouveau"
+      "rivafb"
+      "nvidiafb"
+      "rivatv"
+      "nv"
+      "uvcvideo"
+    ];
+
+    # Optimize memory management
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+    };
+  };
+
+  # Additional performance and compatibility tweaks
+  environment.variables = {
+    # Force Wayland for certain applications
+    CLUTTER_BACKEND = "wayland";
+    GDK_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+
+    # NVIDIA and display optimizations
+    __GL_THREADED_OPTIMIZATIONS = "1";
+    __GL_SHADER_DISK_CACHE = "1";
+    __GL_SHADER_DISK_CACHE_PATH = "/tmp/nvidia-cache";
+
+    # Explicit PRIME render offload
+    __NV_PRIME_RENDER_OFFLOAD = "1";
+    __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+
+    # Additional display compatibility variables
+    LIBVA_DRIVER_NAME = "nvidia";
+    VDPAU_DRIVER = "nvidia";
+    GBM_BACKEND = "nvidia-drm";
+  };
+}

@@ -7,7 +7,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   ###########################################
   # Boot and Hardware Configuration
   ###########################################
@@ -16,7 +17,7 @@
   hardware.graphics.enable = true;
 
   # NVIDIA driver configuration
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   services.xserver.displayManager.gdm.enable = true;
 
   services.xserver.enable = true;
@@ -60,7 +61,27 @@
   };
 
   # Optimize memory usage
-  boot.kernel.sysctl = {
-    "vm.swappiness" = 10;
+  boot = {
+    kernelParams = [
+      "nvidia-drm.modeset=1"
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    ];
+    extraModprobeConfig = ''
+      options bbswitch load_state=-1 unload_state=1 nvidia-drm
+    '';
+    blacklistedKernelModules = [
+      "nouveau"
+      "rivafb"
+      "nvidiafb"
+      "rivatv"
+      "nv"
+      "uvcvideo"
+    ];
+
+    # Optimize memory management
+    kernel.sysctl = {
+      "vm.swappiness" = 10;
+    };
   };
+
 }
