@@ -84,4 +84,22 @@
     };
   };
 
+  # Additional performance tweaks
+  environment.variables = {
+    # Force Wayland for certain applications
+    CLUTTER_BACKEND = "wayland";
+    GDK_BACKEND = "wayland";
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+
+    # Fix: Use string for path instead of bare path reference
+    WLR_DRM_DEVICES = "/dev/dri/card1";
+
+    # Add additional NVIDIA optimizations
+    __GL_THREADED_OPTIMIZATIONS = "1";
+    __GL_SHADER_DISK_CACHE = "1";
+    __GL_SHADER_DISK_CACHE_PATH = "/tmp/nvidia-cache";
+    __NV_PRIME_RENDER_OFFLOAD = "1";
+    __NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+  };
 }
