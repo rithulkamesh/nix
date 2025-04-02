@@ -2,14 +2,15 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   programs.zsh = {
     enable = true;
 
     oh-my-zsh = {
       enable = true;
       theme = "";
-      plugins = ["git"];
+      plugins = [ "git" ];
     };
 
     # Additional plugins not in oh-my-zsh
@@ -94,7 +95,7 @@
 
       # CUDA settings
       export CUDA_HOME="/usr/local/cuda-12"
-      export PATH="$HOME/.local/bin:/usr/local/cuda-12/bin:$PATH"
+      export PATH="$HOME/go/bin:$HOME/.local/bin:/usr/local/cuda-12/bin:$PATH"
 
       # Pyenv setup
       export PYENV_ROOT="$HOME/.pyenv"
