@@ -33,8 +33,7 @@
     nvidiaSettings = true;
 
     prime = {
-      reverseSync.enable = true;
-      allowExternalGpu = true;
+      sync.enable = true;
       nvidiaBusId = "PCI:1:00:0";
       amdgpuBusId = "PCI:66:00:0";
     };
