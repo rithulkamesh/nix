@@ -7,7 +7,8 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   ###########################################
   # Boot and Hardware Configuration
   ###########################################
@@ -16,38 +17,27 @@
   hardware.graphics.enable = true;
 
   # NVIDIA driver configuration
-  services.xserver.videoDrivers = ["nvidia"];
-  services.xserver.displayManager.gdm.enable = true;
 
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+    displayManager.gdm.enable = true;
+  };
+
   hardware.nvidia = {
-    # Enable kernel modesetting for better Wayland compatibility
+
     modesetting.enable = true;
-
-    # Enable power management features
-    powerManagement.enable = true;
-    powerManagement.finegrained = true;
-
-    # Use the proprietary drivers instead of open source ones
-    open = false;
-
-    # Enable the NVIDIA settings panel
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    open = true;
     nvidiaSettings = true;
 
-    # PRIME configuration for hybrid graphics (NVIDIA + AMD)
     prime = {
-      offload.enable = true;
-      # Enable PRIME sync for tear-free rendering
-      sync.enable = false;
-
-      # PCI bus IDs for the NVIDIA and AMD GPUs
-      nvidiaBusId = "PCI:1:0:0";
-      amdgpuBusId = "PCI:66:0:0";
+      reverseSync.enable = true;
+      allowExternalGpu = true;
+      nvidiaBusId = "PCI:1:00:0";
+      amdgpuBusId = "PCI:66:00:0";
     };
-
-    # Use the stable NVIDIA driver package that matches the current kernel
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    forceFullCompositionPipeline = true;
   };
 
   # Improve GNOME performance

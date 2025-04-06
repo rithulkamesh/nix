@@ -23,7 +23,18 @@
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [
+    "kvm-amd"
+    "amdgpu"
+    "nvidia"
+    "nvidia_drm"
+    "nvidia_modeset"
+    "nvidia_uvm"
+  ];
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
+    options nvidia_drm modeset=1
+  '';
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
