@@ -4,7 +4,6 @@
   # Time zone and hardware clock settings
   time = {
     timeZone = "Asia/Kolkata";
-    hardwareClockInLocalTime = true;
   };
 
   # Locale settings
