@@ -22,6 +22,7 @@
     packages = with pkgs; [
       mongodb-compass
       anki
+      ollama
     ];
   };
 }
