@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     #./common/wm/bspwm.nix
     ./common/core/ghostty.nix
@@ -16,5 +17,11 @@
     stateVersion = "24.11";
     username = "rkamesh";
     homeDirectory = "/home/rkamesh";
+
+    # Extra Packages that don't fall under any category
+    packages = with pkgs; [
+      mongodb-compass
+      anki
+    ];
   };
 }
