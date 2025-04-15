@@ -7,16 +7,24 @@
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     ./graphics.nix
     ./hardware-configuration.nix
     ../common/core
   ];
 
-  virtualisation.docker = {
-    enable = true;
-  };
+  nixpkgs.overlays = [
+    (import (
+      builtins.fetchTarball {
+        url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+        sha256 = "sha256:05giy64csmv11p12sd6rcfdgfd1yd24w0amfmxm9dhxwizgs2c0g";
+      }
+    ))
+  ];
+
+  virtualisation.docker.enable = true;
 
   # Kernel packages
   boot.kernelPackages = pkgs.linuxPackages;
@@ -29,7 +37,7 @@
     };
     grub = {
       enable = true;
-      devices = ["nodev"];
+      devices = [ "nodev" ];
       efiSupport = true;
       useOSProber = true;
       default = "saved";
@@ -75,6 +83,7 @@
       insomnia
       firefox
       wl-clipboard-rs
+      emacs-git
     ];
   };
 
@@ -84,7 +93,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  services.udev.packages = with pkgs; [platformio-core.udev];
+  services.udev.packages = with pkgs; [ platformio-core.udev ];
 
   # Font configuration
   fonts = {
@@ -100,11 +109,11 @@
     # Basic utilities
     (neovim.override {
       extraMakeWrapperArgs = ''--prefix PATH : "${
-          lib.makeBinPath [
-            pkgs.gcc
-            pkgs.gnumake
-          ]
-        }"'';
+        lib.makeBinPath [
+          pkgs.gcc
+          pkgs.gnumake
+        ]
+      }"'';
     })
     wget
     killall
@@ -175,7 +184,7 @@
 
   # Library path configuration
   environment.shellInit = ''
-    export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.fzf]}:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [ pkgs.fzf ]}:$LD_LIBRARY_PATH"
   '';
 
   # SSH server

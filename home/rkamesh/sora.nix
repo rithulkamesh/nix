@@ -23,7 +23,6 @@
       mongodb-compass
       anki
       ollama
-      emacs
     ];
   };
 }
