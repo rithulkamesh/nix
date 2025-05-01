@@ -2,8 +2,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   imports = [
     #./common/wm/bspwm.nix
     ./common/core/ghostty.nix
@@ -23,6 +22,14 @@
       mongodb-compass
       anki
       ollama
+      gdb
+      pavucontrol
+
+      # Emacs
+      ripgrep
+      fd
+      shellcheck
+      pandoc
     ];
   };
 }

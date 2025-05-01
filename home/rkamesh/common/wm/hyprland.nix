@@ -143,24 +143,15 @@
 
   home.packages = with pkgs; [
     # Necessary Utilities
-    hyprlock
     xfce.thunar
     pavucontrol
 
     # Theming
-    hyprpaper
     inputs.matugen.packages.${system}.default
-
-    # Notifications
-    dunst
-    libnotify
 
     # XF86 Bind Tools
     pw-volume
     brightnessctl
-
-    # Searcher
-    rofi-wayland
 
     # GTK Themes
     nwg-look

@@ -50,7 +50,7 @@
       vi = "nvim";
     };
 
-    initExtra = ''
+    initContent = ''
 
       # Theme Stuff
       ZSH_THEME_GIT_PROMPT_PREFIX=" on %{$fg[magenta]%}\uE0A0 "

@@ -7,8 +7,7 @@
   config,
   pkgs,
   ...
-}:
-{
+}: {
   imports = [
     ./graphics.nix
     ./hardware-configuration.nix
@@ -37,7 +36,7 @@
     };
     grub = {
       enable = true;
-      devices = [ "nodev" ];
+      devices = ["nodev"];
       efiSupport = true;
       useOSProber = true;
       default = "saved";
@@ -66,6 +65,7 @@
       "docker"
       "dialout"
       "input"
+      "audio"
     ];
     packages = with pkgs; [
       obsidian
@@ -84,6 +84,7 @@
       firefox
       wl-clipboard-rs
       emacs-git
+      pkg-config
     ];
   };
 
@@ -93,7 +94,7 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-  services.udev.packages = with pkgs; [ platformio-core.udev ];
+  services.udev.packages = with pkgs; [platformio-core.udev];
 
   # Font configuration
   fonts = {
@@ -109,11 +110,11 @@
     # Basic utilities
     (neovim.override {
       extraMakeWrapperArgs = ''--prefix PATH : "${
-        lib.makeBinPath [
-          pkgs.gcc
-          pkgs.gnumake
-        ]
-      }"'';
+          lib.makeBinPath [
+            pkgs.gcc
+            pkgs.gnumake
+          ]
+        }"'';
     })
     wget
     killall
@@ -184,7 +185,7 @@
 
   # Library path configuration
   environment.shellInit = ''
-    export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [ pkgs.fzf ]}:$LD_LIBRARY_PATH"
+    export LD_LIBRARY_PATH="${pkgs.lib.makeLibraryPath [pkgs.fzf]}:$LD_LIBRARY_PATH"
   '';
 
   # SSH server

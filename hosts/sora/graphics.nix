@@ -21,8 +21,9 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
-    displayManager.gdm.enable = true;
   };
+  services.displayManager.sddm.enable = true;
+  services.desktopManager.plasma6.enable = true;
 
   hardware.nvidia = {
 
@@ -39,14 +40,14 @@
     };
   };
 
-  # Improve GNOME performance
-  services.xserver.desktopManager.gnome = {
-    enable = true;
-    extraGSettingsOverrides = ''
-      [org.gnome.mutter]
-      experimental-features=[]
-    '';
-  };
+  # # Improve GNOME performance
+  # services.xserver.desktopManager.gnome = {
+  #   enable = true;
+  #   extraGSettingsOverrides = ''
+  #     [org.gnome.mutter]
+  #     experimental-features=[]
+  #   '';
+  # };
 
   # Optimize memory usage
   boot.kernel.sysctl = {
