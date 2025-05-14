@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     #./common/wm/bspwm.nix
     ./common/core/ghostty.nix
@@ -10,6 +11,7 @@
     # ./common/wm/hyprland.nix
     ./common/optional/zathura.nix
     ./common/optional/spicetify.nix
+    ./common/optional/rider.nix
   ];
 
   home = {
@@ -24,12 +26,20 @@
       ollama
       gdb
       pavucontrol
+      obs-studio
 
       # Emacs
       ripgrep
       fd
       shellcheck
       pandoc
+
+      (pkgs.unityhub.override {
+        extraPkgs = fhsPkgs: [
+          fhsPkgs.harfbuzz
+          fhsPkgs.libogg
+        ];
+      })
     ];
   };
 }
