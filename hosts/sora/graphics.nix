@@ -14,7 +14,12 @@
   ###########################################
 
   # Enable hardware graphics support
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      rocmPackages.clr.icd
+    ];
+  };
 
   # NVIDIA driver configuration
 
@@ -29,7 +34,6 @@
   programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
 
   hardware.nvidia = {
-
     modesetting.enable = true;
     powerManagement.enable = false;
     powerManagement.finegrained = false;

@@ -24,7 +24,7 @@
   };
 
   # Enable common GNOME services
-  services.gnome.core-utilities.enable = true;
+  services.gnome.core-apps.enable = true;
 
   # Enable GNOME keyring service
   security.pam.services.gdm.enableGnomeKeyring = true;

@@ -1,6 +1,11 @@
+{
+  pkgs,
+  lib,
+  ...
+}:
 let
   extra-path = with pkgs; [
-    dotnetCorePackages.sdk_6_0
+    dotnetCorePackages.sdk_8_0
     dotnetPackages.Nuget
     mono
     msbuild
@@ -11,6 +16,9 @@ let
     # Add any extra libraries you want accessible to Rider here
   ];
 
+  # Explicitly set DOTNET_ROOT to the SDK 8.0 path
+  dotnetRoot = "${pkgs.dotnetCorePackages.sdk_8_0}";
+
   rider = pkgs.jetbrains.rider.overrideAttrs (attrs: {
     postInstall =
       ''
@@ -19,7 +27,8 @@ let
         makeWrapper $out/bin/.rider-toolless $out/bin/rider \
           --argv0 rider \
           --prefix PATH : "${lib.makeBinPath extra-path}" \
-          --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath extra-lib}"
+          --prefix LD_LIBRARY_PATH : "${lib.makeLibraryPath extra-lib}" \
+          --set DOTNET_ROOT "${dotnetRoot}"
 
         # Making Unity Rider plugin work!
         # The plugin expects the binary to be at /rider/bin/rider,
@@ -34,23 +43,23 @@ let
   });
 in
 {
-  environment.systemPackages = [
+  home.packages = [
     rider
+    # Explicitly include dotnet SDK 8.0 to ensure it's available system-wide
+    pkgs.dotnetCorePackages.sdk_8_0
   ];
 
-  home-manager.users.rkamesh.home.file = {
-    ".local/share/applications/jetbrains-rider.desktop".source =
-      let
-        desktopFile = pkgs.makeDesktopItem {
-          name = "jetbrains-rider";
-          desktopName = "Rider";
-          exec = "\"${rider}/bin/rider\"";
-          icon = "rider";
-          type = "Application";
-          # Don't show desktop icon in search or run launcher
-          extraConfig.NoDisplay = "true";
-        };
-      in
-      "${desktopFile}/share/applications/jetbrains-rider.desktop";
-  };
+  home.file.".local/share/applications/jetbrains-rider.desktop".source =
+    let
+      desktopFile = pkgs.makeDesktopItem {
+        name = "jetbrains-rider";
+        desktopName = "Rider";
+        exec = "\"${rider}/bin/rider\"";
+        icon = "rider";
+        type = "Application";
+        # Don't show desktop icon in search or run launcher
+        extraConfig.NoDisplay = "true";
+      };
+    in
+    "${desktopFile}/share/applications/jetbrains-rider.desktop";
 }

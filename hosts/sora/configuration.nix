@@ -15,6 +15,12 @@
     ../common/core
   ];
 
+  # Allow dotnet-sdk-6.0.428 which is EOL but needed by Rider
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-sdk-6.0.428"
+    "dotnet-runtime-6.0.36"
+  ];
+
   nixpkgs.overlays = [
     (import (
       builtins.fetchTarball {
@@ -96,6 +102,12 @@
       insomnia
       wl-clipboard-rs
       emacs-git
+      mu
+      opencl-headers
+      godot
+      cudaPackages.cuda_opencl
+      ((emacsPackagesFor emacs-git).emacsWithPackages (epkgs: [ epkgs.mu4e ]))
+      isync
       pkg-config
     ];
   };

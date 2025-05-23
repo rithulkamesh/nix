@@ -11,7 +11,6 @@
     # ./common/wm/hyprland.nix
     ./common/optional/zathura.nix
     ./common/optional/spicetify.nix
-    ./common/optional/rider.nix
   ];
 
   home = {
@@ -33,6 +32,7 @@
       fd
       shellcheck
       pandoc
+      libreoffice-qt6-fresh
 
       (pkgs.unityhub.override {
         extraPkgs = fhsPkgs: [
