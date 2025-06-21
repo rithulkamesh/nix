@@ -33,13 +33,8 @@
       shellcheck
       pandoc
       libreoffice-qt6-fresh
+      btop
 
-      (pkgs.unityhub.override {
-        extraPkgs = fhsPkgs: [
-          fhsPkgs.harfbuzz
-          fhsPkgs.libogg
-        ];
-      })
     ];
   };
 }

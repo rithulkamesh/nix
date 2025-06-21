@@ -16,7 +16,6 @@
   # - Wayland session support
   #
   services.xserver = {
-    desktopManager.gnome.enable = true;
     xkb = {
       layout = "us";
       options = "ctrl:nocaps";
@@ -25,6 +24,7 @@
 
   # Enable common GNOME services
   services.gnome.core-apps.enable = true;
+  services.desktopManager.gnome.enable = true;
 
   # Enable GNOME keyring service
   security.pam.services.gdm.enableGnomeKeyring = true;

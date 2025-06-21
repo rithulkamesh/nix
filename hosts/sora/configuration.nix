@@ -15,17 +15,11 @@
     ../common/core
   ];
 
-  # Allow dotnet-sdk-6.0.428 which is EOL but needed by Rider
-  nixpkgs.config.permittedInsecurePackages = [
-    "dotnet-sdk-6.0.428"
-    "dotnet-runtime-6.0.36"
-  ];
-
   nixpkgs.overlays = [
     (import (
       builtins.fetchTarball {
         url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-        sha256 = "sha256:05giy64csmv11p12sd6rcfdgfd1yd24w0amfmxm9dhxwizgs2c0g";
+        sha256 = "sha256:0p10lhlrmqd4gpf0106i5j00m88ndnp4k8b2f5hfg14m9kfd2l2d";
       }
     ))
   ];
@@ -159,7 +153,6 @@
 
     # Development tools
     gnupg
-    pinentry-curses
 
     # Programming languages and build tools
     gcc
@@ -173,6 +166,8 @@
     python312Packages.pip
     uv
     nodejs_20
+    texliveFull
+    ffmpeg-full
 
     # Graphics and CUDA
     cudatoolkit
@@ -210,6 +205,7 @@
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
+    pinentryPackage = pkgs.pinentry-qt;
   };
   programs.nix-ld.enable = true;
 
