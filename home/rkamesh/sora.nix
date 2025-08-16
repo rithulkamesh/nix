@@ -34,7 +34,10 @@
       pandoc
       libreoffice-qt6-fresh
       btop
-
+      sqlite
+      awscli2
+      jq
+      tree
     ];
   };
 }

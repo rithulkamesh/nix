@@ -30,6 +30,7 @@
     "nvidia_drm"
     "nvidia_modeset"
     "nvidia_uvm"
+    "snd_hda_intel"
   ];
   boot.extraModprobeConfig = ''
     options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
