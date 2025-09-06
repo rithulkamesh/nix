@@ -95,7 +95,7 @@
 
       # CUDA settings
       export CUDA_HOME="/usr/local/cuda-12"
-      export PATH="$HOME/.cargo/bin:$HOME/.config/emacs/bin:$HOME/go/bin:$HOME/.local/bin:/usr/local/cuda-12/bin:$PATH"
+      export PATH="$HOME/.npm-global/bin:$HOME/.cargo/bin:$HOME/go/bin:$HOME/.local/bin:/usr/local/cuda-12/bin:$PATH"
 
       # Pyenv setup
       export PYENV_ROOT="$HOME/.pyenv"

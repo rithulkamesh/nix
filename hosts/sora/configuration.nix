@@ -15,14 +15,7 @@
     ../common/core
   ];
 
-  nixpkgs.overlays = [
-    (import (
-      builtins.fetchTarball {
-        url = "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-        sha256 = "sha256:0d8wz02hb2bcnzl4fv485hbgqsydrbhkzcwxlbsnmr3hrw4nfypg";
-      }
-    ))
-  ];
+  nixpkgs.overlays = [ ];
 
   virtualisation.docker.enable = true;
 
@@ -79,6 +72,7 @@
       "audio"
       "lp"
       "scanner"
+      "wireshark"
     ];
     packages = with pkgs; [
       obsidian
@@ -95,12 +89,10 @@
       gh
       insomnia
       wl-clipboard-rs
-      emacs-git
       mu
       opencl-headers
       godot
       cudaPackages.cuda_opencl
-      ((emacsPackagesFor emacs-git).emacsWithPackages (epkgs: [ epkgs.mu4e ]))
       isync
       pkg-config
     ];

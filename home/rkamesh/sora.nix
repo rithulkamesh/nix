@@ -21,13 +21,11 @@
     # Extra Packages that don't fall under any category
     packages = with pkgs; [
       mongodb-compass
-      anki
       ollama
       gdb
       pavucontrol
       obs-studio
 
-      # Emacs
       ripgrep
       fd
       shellcheck
@@ -38,6 +36,10 @@
       awscli2
       jq
       tree
+      wireshark
+      dig
+
+      code-cursor
     ];
   };
 }
