@@ -14,13 +14,13 @@
     settings = {
       # Monitor configuration
       monitor = [
-        "HDMI-1,3840x2160,0x0,1.5" # 4K external monitor on the left
+        "HDMI-A-1,3840x2160,0x0,1.5" # 4K external monitor on the left
         "eDP-1,preferred,2560x0,1" # Laptop display to the right (2560px = 3840/1.5 scaling)
       ];
       bindl = [
         # When lid is closed, disable internal display
         ",switch:on:Lid Switch,exec,hyprctl keyword monitor eDP-1,disable"
-        # When lid is opened, enable internal display  
+        # When lid is opened, enable internal display
         ",switch:off:Lid Switch,exec,hyprctl keyword monitor eDP-1,preferred,2560x0,1"
       ];
       # Input settings
@@ -114,13 +114,13 @@
 
         # Lock screen
         "$mod, L, exec, hyprlock"
-        
+
         # Media controls
         ", XF86AudioPlay, exec, playerctl play-pause"
         ", XF86AudioPause, exec, playerctl play-pause"
         ", XF86AudioNext, exec, playerctl next"
         ", XF86AudioPrev, exec, playerctl previous"
-        
+
         # Additional useful bindings
         "$mod SHIFT, E, exec, wlogout"
         "$mod, B, exec, pkill -SIGUSR1 waybar" # Toggle waybar
@@ -128,19 +128,23 @@
         "$mod, F, fullscreen"
         "$mod SHIFT, F, exec, hyprctl dispatch workspaceopt allfloat"
         "$mod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" # Clipboard history
-        
-        # Pro tip bindings  
+
+        # Monitor management
+        "$mod CTRL, 1, focusmonitor, HDMI-A-1" # Focus external monitor
+        "$mod CTRL, 2, focusmonitor, eDP-1" # Focus laptop monitor
+
+        # Pro tip bindings
         "$mod SHIFT, R, exec, wf-recorder -g \"$(slurp)\" -f ~/Videos/recording_$(date +%Y%m%d_%H%M%S).mp4" # Screen recording
         "$mod CTRL, Q, exec, pkill wf-recorder" # Stop recording
         "$mod, T, exec, ghostty -e btop" # System monitor
         "$mod SHIFT, B, exec, blueman-manager" # Bluetooth manager
-        
+
         # Window management
         "$mod SHIFT, left, movewindow, l"
-        "$mod SHIFT, right, movewindow, r" 
+        "$mod SHIFT, right, movewindow, r"
         "$mod SHIFT, up, movewindow, u"
         "$mod SHIFT, down, movewindow, d"
-        
+
         # Resize windows
         "$mod CTRL, left, resizeactive, -20 0"
         "$mod CTRL, right, resizeactive, 20 0"
@@ -182,7 +186,7 @@
 
       exec-once = [
         "dunst"
-        "caa -d" 
+        "caa -d"
         "hyprpaper"
         "gnome-keyring-daemon -s"
         "nm-applet --indicator"
@@ -192,6 +196,7 @@
         "wlsunset -S 06:30 -s 19:30"
         "hypridle"
         "blueman-applet"
+        "kanshi" # Dynamic display configuration
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
       ];
 
@@ -227,17 +232,17 @@
         "float,class:^(blueman-manager)$"
         "float,class:^(wlogout)$"
         "float,title:^(rofi)"
-        
+
         # Picture-in-picture
         "float,title:^(Picture-in-Picture)$"
         "pin,title:^(Picture-in-Picture)$"
         "move 69% 4%,title:^(Picture-in-Picture)$"
         "size 30% 30%,title:^(Picture-in-Picture)$"
-        
+
         # Center dialogs
         "center,class:^(gcr-prompter)$"
         "center,class:^(polkit-gnome-authentication-agent-1)$"
-        
+
         # Workspace assignments
         "workspace 2,class:^(firefox)$"
         "workspace 3,class:^(code|Code)$"
@@ -245,22 +250,22 @@
         "workspace 5,class:^(Spotify|spotify)$"
         "workspace 6,class:^(steam)$"
         "workspace 6,class:^(lutris)$"
-        
+
         # Gaming optimizations
         "fullscreen,class:^(steam_app_.*)$"
         "workspace 6,class:^(steam_app_.*)$"
         "immediate,class:^(steam_app_.*)$"
         "fullscreen,class:^(gamescope)$"
-        
+
         # Opacity rules
         "opacity 0.9 0.9,class:^(ghostty)$"
         "opacity 0.95 0.95,class:^(code|Code)$"
         "opacity 1.0 1.0,class:^(steam_app_.*)$"
-        
+
         # System utilities
         "float,class:^(btop)$"
         "float,class:^(blueman-manager)$"
-        
+
         # Focus rules
         "suppressevent maximize, class:.*"
       ];
@@ -303,6 +308,25 @@
     }
   '';
 
+  # Kanshi configuration for dynamic display management
+  home.file.".config/kanshi/config".text = ''
+    # Profile for external monitor + laptop (docked) - current setup
+    profile docked {
+        output HDMI-A-1 mode 3840x2160@60Hz position 0,0 scale 1.5
+        output eDP-1 mode 1920x1080@144Hz position 2560,0 scale 1.0
+    }
+
+    # Profile for laptop only (undocked)
+    profile laptop {
+        output eDP-1 mode 1920x1080@144Hz position 0,0 scale 1.0
+    }
+
+    # Profile for external monitor only (lid closed or laptop disabled)
+    profile external {
+        output HDMI-A-1 mode 3840x2160@60Hz position 0,0 scale 1.5
+    }
+  '';
+
   home.packages = with pkgs; [
     # Necessary Utilities
     xfce.thunar
@@ -326,10 +350,9 @@
 
     # Network management
     networkmanagerapplet
-    
+
     # Quality of life utilities
     wlogout # Logout menu
-    waybar # Status bar (if not already installed elsewhere)
     swaynotificationcenter # Alternative to dunst
     wl-gammactl # Blue light filter
     wlsunset # Auto blue light based on time
@@ -339,15 +362,13 @@
     hypridle # Idle daemon for Hyprland
     cliphist # Clipboard history
     polkit_gnome # Authentication agent
-    
+
     # Pro tips implementations
     wf-recorder # Screen recording for Wayland
     gamescope # Gaming performance layer
     blueman # Bluetooth GUI management
     btop # Modern system monitor
-    looking-glass-client # VM display (optional)
-    
-    # File management and utilities
+    looking-glass-client # VM display (optional)    # File management and utilities
     xdg-utils # Desktop integration
     shared-mime-info # File type associations
     gtk3 # GTK3 support

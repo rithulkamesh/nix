@@ -41,6 +41,12 @@
 
       code-cursor
       asusctl
+
+      # Productivity tools
+      zellij # Terminal multiplexer
+      timewarrior # Time tracking
+      just # Command runner
+      kanshi # Dynamic display configuration
     ];
   };
 }
