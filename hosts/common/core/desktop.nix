@@ -22,30 +22,22 @@
     };
   };
 
-  # Enable common GNOME services
-  services.gnome.core-apps.enable = true;
-  services.desktopManager.gnome.enable = true;
-
-  # Enable GNOME keyring service
-  security.pam.services.gdm.enableGnomeKeyring = true;
-
   #
   # Hyprland Configuration
   #
   # This section configures Hyprland with the following features:
   # - Wayland-based compositor
-  # - GDM as the display manager
   # - Hardware acceleration support
   # - Default XDG desktop portal
   #
-  # programs.hyprland = {
-  #   enable = true;
-  #   xwayland.enable = true;
-  # };
-  # environment.sessionVariables = {
-  #   WLR_NO_HARDWARE_CURSORS = "0";
-  #   NIXOS_OZONE_WL = "1";
-  # };
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "0";
+    NIXOS_OZONE_WL = "1";
+  };
 
   xdg.portal = {
     enable = true;

@@ -36,11 +36,6 @@
     videoDrivers = [ "nvidia" ];
   };
 
-  # KDE Plasma configuration
-  services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-  programs.ssh.askPassword = lib.mkForce "${pkgs.kdePackages.ksshaskpass}/bin/ksshaskpass";
-
   hardware.nvidia = {
     modesetting.enable = true;
     powerManagement.enable = false;

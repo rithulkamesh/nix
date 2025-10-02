@@ -2,8 +2,9 @@
   pkgs,
   inputs,
   ...
-}: {
-  imports = [./hypr];
+}:
+{
+  imports = [ ./hypr ];
 
   wayland.windowManager.hyprland = {
     enable = true;
@@ -156,5 +157,8 @@
     # GTK Themes
     nwg-look
     tokyonight-gtk-theme
+
+    # Rofi
+    rofi
   ];
 }
