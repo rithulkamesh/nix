@@ -5,5 +5,6 @@
     ./matugen.nix
     ./waybar.nix
     ./hyprlock.nix
+    ./rofi.nix
   ];
 }
