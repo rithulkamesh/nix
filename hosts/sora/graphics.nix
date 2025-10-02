@@ -21,8 +21,16 @@
     ];
   };
 
-  # NVIDIA driver configuration
+  # Asus Configuration
+  services = {
+    supergfxd.enable = true;
+    asusd = {
+      enable = true;
+      enableUserService = true;
+    };
+  };
 
+  # NVIDIA driver configuration
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
