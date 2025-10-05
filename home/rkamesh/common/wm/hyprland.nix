@@ -299,26 +299,33 @@
         ignore_dbus_inhibit = false
     }
 
+    # When plugged in (AC power): only lock, no dimming or sleeping
+    listener {
+        timeout = 300
+        on-timeout = test "$(cat /sys/class/power_supply/AC*/online)" = "1" && loginctl lock-session
+    }
+
+    # When on battery: full power management (dim, lock, display off, suspend)
     listener {
         timeout = 150
-        on-timeout = brightnessctl -s set 10
+        on-timeout = test "$(cat /sys/class/power_supply/AC*/online)" = "0" && brightnessctl -s set 10
         on-resume = brightnessctl -r
     }
 
     listener {
         timeout = 300
-        on-timeout = loginctl lock-session
+        on-timeout = test "$(cat /sys/class/power_supply/AC*/online)" = "0" && loginctl lock-session
     }
 
     listener {
         timeout = 330
-        on-timeout = hyprctl dispatch dpms off
+        on-timeout = test "$(cat /sys/class/power_supply/AC*/online)" = "0" && hyprctl dispatch dpms off
         on-resume = hyprctl dispatch dpms on
     }
 
     listener {
         timeout = 1800
-        on-timeout = systemctl suspend
+        on-timeout = test "$(cat /sys/class/power_supply/AC*/online)" = "0" && systemctl suspend
     }
   '';
 
