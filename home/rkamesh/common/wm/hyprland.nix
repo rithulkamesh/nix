@@ -50,9 +50,23 @@
         rounding = 10;
         blur = {
           enabled = true;
-          size = 5;
-          passes = 2;
+          size = 8;
+          passes = 3;
+          new_optimizations = true;
+          xray = false;
+          ignore_opacity = false;
+          noise = 0.0117;
+          contrast = 0.8916;
+          brightness = 0.8172;
+          vibrancy = 0.1696;
+          vibrancy_darkness = 0.0;
         };
+
+        # Window opacity
+        active_opacity = 0.92;
+        inactive_opacity = 0.85;
+        fullscreen_opacity = 1.0;
+
       };
 
       animations = {

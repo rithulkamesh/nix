@@ -31,7 +31,7 @@
         horizontal_padding = 10; # Reduced from 15
         text_icon_padding = 0;
         frame_width = 1; # Reduced from 2
-        frame_color = "#1bd5ab";
+        frame_color = "#7aa2f7";
         gap_size = 3; # Reduced from 5
         separator_color = "auto";
         sort = "yes";
@@ -87,27 +87,27 @@
       };
 
       urgency_low = {
-        background = "#111019";
-        foreground = "#F1F0F5";
-        frame_color = "#0B0A10";
+        background = "#1a1b26";
+        foreground = "#c0caf5";
+        frame_color = "#414868";
         timeout = 3;
-        highlight = "#AAC5A0";
+        highlight = "#9ece6a";
       };
 
       urgency_normal = {
-        background = "#111019";
-        foreground = "#F1F0F5";
-        frame_color = "#0B0A10";
+        background = "#1a1b26";
+        foreground = "#c0caf5";
+        frame_color = "#7aa2f7";
         timeout = 5;
-        highlight = "#A8C5E6";
+        highlight = "#7aa2f7";
       };
 
       urgency_critical = {
-        background = "#111019";
-        foreground = "#E97193";
-        frame_color = "#0B0A10";
+        background = "#1a1b26";
+        foreground = "#f7768e";
+        frame_color = "#f7768e";
         timeout = 10;
-        highlight = "#E97193";
+        highlight = "#f7768e";
       };
     };
   };
