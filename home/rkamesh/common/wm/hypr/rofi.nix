@@ -7,7 +7,7 @@
   programs.rofi = {
     enable = true;
     package = pkgs.rofi;
-    theme = "~/.config/rofi/tokyo-night.rasi";
+    theme = "~/.config/rofi/gruvbox.rasi";
 
     extraConfig = {
       modi = "drun,run,window";
@@ -21,22 +21,22 @@
     };
   };
 
-  # Tokyo Night theme as a separate file
-  home.file.".config/rofi/tokyo-night.rasi".text = ''
+  # Gruvbox theme as a separate file
+  home.file.".config/rofi/gruvbox.rasi".text = ''
     * {
-        bg0: #1a1b26;
-        bg1: #24283b;
-        bg2: #414868;
-        bg3: #565f89;
-        fg0: #c0caf5;
-        fg1: #a9b1d6;
-        fg2: #737aa2;
-        red: #f7768e;
-        green: #9ece6a;
-        yellow: #e0af68;
-        blue: #7aa2f7;
-        magenta: #bb9af7;
-        cyan: #7dcfff;
+        bg0: #282828;
+        bg1: #3c3836;
+        bg2: #504945;
+        bg3: #665c54;
+        fg0: #ebdbb2;
+        fg1: #d5c4a1;
+        fg2: #a89984;
+        red: #cc241d;
+        green: #689d6a;
+        yellow: #d79921;
+        blue: #458588;
+        magenta: #b16286;
+        cyan: #689d6a;
 
         font: "JetBrains Mono Nerd Font 12";
         

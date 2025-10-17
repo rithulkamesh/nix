@@ -42,11 +42,22 @@
       code-cursor
       asusctl
 
+      slack
+
       # Productivity tools
       zellij # Terminal multiplexer
       timewarrior # Time tracking
       just # Command runner
       kanshi # Dynamic display configuration
+
+      # Email and Calendar
+      thunderbird # Email client with built-in calendar
+
+      # Password Manager and Security
+      bitwarden # Password manager with passkey support
+      bitwarden-cli # Command line interface
+
     ];
   };
+
 }

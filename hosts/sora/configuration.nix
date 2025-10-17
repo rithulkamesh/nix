@@ -43,7 +43,15 @@
 
   networking = {
     hostName = "sora";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+      # Enable WiFi password storage and automatic connection
+      wifi.backend = "wpa_supplicant";
+      # Allow users to manage connections
+      enableStrongSwan = false;
+      # Enable automatic connection to known networks
+      enableWifi = true;
+    };
     firewall = {
       allowedUDPPorts = [
         5353
@@ -104,6 +112,30 @@
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  ###########################################
+  # Display Manager Configuration
+  ###########################################
+
+  # Disable any display manager to remove greeter
+  services.xserver.displayManager = {
+    # Disable all display managers
+    sddm.enable = false;
+    gdm.enable = false;
+    lightdm.enable = false;
+    # Enable automatic login
+    autoLogin = {
+      enable = true;
+      user = "rkamesh";
+    };
+  };
+
+  # Ensure Hyprland starts directly without display manager
+  services.xserver.desktopManager = {
+    xfce.enable = false;
+    gnome.enable = false;
+    plasma5.enable = false;
+  };
   services.udev.packages = with pkgs; [ platformio-core.udev ];
 
   nix.settings.trusted-users = [

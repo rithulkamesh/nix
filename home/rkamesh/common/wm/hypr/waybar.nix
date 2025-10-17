@@ -3,28 +3,29 @@
   lib,
   pkgs,
   ...
-}: {
+}:
+{
   programs.waybar = {
     enable = true;
     systemd.enable = true;
     package = pkgs.waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = (oldAttrs.mesonFlags or []) ++ ["-Dexperimental=true"];
+      mesonFlags = (oldAttrs.mesonFlags or [ ]) ++ [ "-Dexperimental=true" ];
     });
 
     style = ''
-      /* Tokyo Night (Night variant) colors */
-      @define-color bg            #1a1b26;
-      @define-color bg-alt        #24283b;
-      @define-color fg            #c0caf5;
-      @define-color fg-alt        #a9b1d6;
-      @define-color blue          #7aa2f7;
-      @define-color blue-alt      #3d59a1;
-      @define-color green         #9ece6a;
-      @define-color magenta       #bb9af7;
-      @define-color red           #f7768e;
-      @define-color yellow        #e0af68;
-      @define-color cyan          #7dcfff;
-      @define-color orange        #ff9e64;
+      /* Gruvbox Dark colors */
+      @define-color bg            #282828;
+      @define-color bg-alt        #3c3836;
+      @define-color fg            #ebdbb2;
+      @define-color fg-alt        #a89984;
+      @define-color blue          #458588;
+      @define-color blue-alt      #076678;
+      @define-color green         #b16286;
+      @define-color magenta       #b16286;
+      @define-color red           #cc241d;
+      @define-color yellow        #d79921;
+      @define-color cyan          #689d6a;
+      @define-color orange        #d65d0e;
 
       * {
         font-family: 'JetBrains Mono', 'SF Pro Text', monospace;
@@ -73,16 +74,24 @@
 
       /* Set common module styling */
       #clock,
+      #custom-date,
       #network,
       #wireplumber,
-      #battery {
-        padding: 0 1px;
+      #battery,
+      #pulseaudio,
+      #custom-audio-output,
+      #custom-power {
+        padding: 0 4px;
         margin: 2px 2px;
         color: @fg;
       }
 
       #clock {
         font-weight: bold;
+      }
+
+      #custom-date {
+        color: @fg-alt;
       }
 
       #battery {
@@ -125,35 +134,80 @@
         layer = "top";
         position = "top";
         height = 31;
-        spacing = 8;
+        spacing = 6;
 
-        modules-left = ["hyprland/workspaces"];
-        modules-center = ["clock"];
-        modules-right = ["wireplumber" "network" "battery"];
+        modules-left = [
+          "hyprland/workspaces"
+          "hyprland/window"
+        ];
+        modules-center = [
+          "clock"
+          "custom/date"
+        ];
+        modules-right = [
+          "pulseaudio"
+          "custom/audio-output"
+          "network"
+          "battery"
+          "custom/power"
+        ];
 
         "hyprland/workspaces" = {
-          format = "{icon}";
+          format = "{}";
           on-click = "activate";
+        };
+
+        "hyprland/window" = {
+          format = "{}";
+          separate-outputs = true;
+          max-length = 50;
         };
 
         clock = {
           format = "{:%I:%M %p}";
           format-alt = "{:%Y-%m-%d}";
           tooltip-format = "<big>{:%B %d, %Y}</big>\n<tt>{calendar}</tt>";
+          interval = 1;
         };
 
-        wireplumber = {
+        "custom/date" = {
+          exec = ''bash -c 'day=$(date +%-d); case $day in 1|21|31) suf="st";; 2|22) suf="nd";; 3|23) suf="rd";; *) suf="th";; esac; date +" $day$suf %B %Y"' '';
+          interval = 60;
+          format = "{}";
+          tooltip = false;
+        };
+
+        tray = {
+          icon-size = 16;
+          spacing = 8;
+        };
+
+        pulseaudio = {
           format = "{icon} {volume}%";
           format-muted = "󰝟 Muted";
           format-icons = {
-            default = ["󰕿" "󰖀" "󰕾"];
+            default = [
+              "󰕿"
+              "󰖀"
+              "󰕾"
+            ];
           };
           on-click = "pavucontrol";
         };
 
+        "custom/audio-output" = {
+          exec = ''bash -c 'pactl get-default-sink | sed "s/.*\.//" | sed "s/_/ /g" | awk "{print toupper(substr(\$0,1,1)) tolower(substr(\$0,2))}" | cut -c1-12' '';
+          interval = 2;
+          format = "󰓃 {}";
+          on-click = "~/.config/waybar/audio-switcher.sh";
+          tooltip = false;
+        };
+
         network = {
           format = "󰖩 {essid}";
+          format-disconnected = "󰖪 Disconnected";
           tooltip-format = "Signal: {signalStrength}%\nUp: {bandwidthUpBits}\nDown: {bandwidthDownBits}";
+          tooltip-format-disconnected = "Disconnected";
         };
 
         battery = {
@@ -166,7 +220,25 @@
           format-plugged = "󰚥 {capacity}%";
           format-alt = "{icon} {time}";
           format-time = "{H}h {M}m";
-          format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          format-icons = [
+            "󰂎"
+            "󰁺"
+            "󰁻"
+            "󰁼"
+            "󰁽"
+            "󰁾"
+            "󰁿"
+            "󰂀"
+            "󰂁"
+            "󰂂"
+            "󰁹"
+          ];
+        };
+
+        "custom/power" = {
+          format = "󰐥";
+          on-click = "wlogout";
+          tooltip = false;
         };
       }
     ];

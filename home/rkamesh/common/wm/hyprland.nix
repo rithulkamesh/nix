@@ -41,8 +41,8 @@
         border_size = 1;
         layout = "dwindle";
         resize_on_border = true;
-        "col.active_border" = "0xffa3e49f 0xff63b2b8 0xff82599c 45deg";
-        "col.inactive_border" = "0xff6e738d";
+        "col.active_border" = "0xff689d6a 0xff458588 0xffb16286 45deg";
+        "col.inactive_border" = "0xff3c3836";
       };
 
       # Decoration settings
@@ -115,11 +115,12 @@
         "$mod, Return, exec, ghostty"
         "$mod SHIFT, Q, killactive,"
         "$mod, M, exit,"
-        "$mod, E, exec, dolphin"
+        "$mod, E, exec, thunar"
         "$mod, V, togglefloating,"
         "$mod, D, exec, rofi -show drun"
         "$mod, P, pseudo,"
         "$mod, J, togglesplit,"
+        "$mod SHIFT, B, exec, bitwarden" # Open Bitwarden
 
         # Screenshot binds (Windows-like)
         "$mod SHIFT, S, exec, grim -g \"$(slurp)\" - | wl-copy && notify-send \"Screenshot\" \"Area screenshot copied to clipboard\""
@@ -141,7 +142,7 @@
         "$mod CTRL, R, exec, hyprctl reload" # Reload config
         "$mod, F, fullscreen"
         "$mod SHIFT, F, exec, hyprctl dispatch workspaceopt allfloat"
-        "$mod, C, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" # Clipboard history
+        "CTRL SHIFT, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" # Clipboard history
 
         # Monitor management
         "$mod CTRL, 1, focusmonitor, HDMI-A-1" # Focus external monitor
@@ -212,6 +213,10 @@
         "blueman-applet"
         "kanshi" # Dynamic display configuration
         "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "gsettings set org.gnome.desktop.interface gtk-theme 'gruvbox-dark'"
+        "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
+        "thunderbird --background" # Start Thunderbird in background for email fetching
+        "bitwarden --startup" # Start Bitwarden for system-level passkey support
       ];
 
       env = [
@@ -230,6 +235,14 @@
         "XCURSOR_SIZE,24"
         "QT_AUTO_SCREEN_SCALE_FACTOR,1"
         "QT_WAYLAND_DISABLE_WINDOWDECORATION,1"
+
+        # GTK Theme Environment Variables
+        "GTK_THEME,gruvbox-dark"
+        "GTK2_RC_FILES,/home/rkamesh/.gtkrc-2.0"
+
+        # Browser Environment Variables
+        "BROWSER,vivaldi"
+        "DEFAULT_BROWSER,vivaldi"
 
         # NVIDIA specific for better performance
         "WLR_NO_HARDWARE_CURSORS,1"
@@ -260,16 +273,9 @@
         # Workspace assignments
         "workspace 2,class:^(firefox)$"
         "workspace 3,class:^(code|Code)$"
+        "workspace 3,class:^(cursor|Cursor)$"
         "workspace 4,class:^(discord|Discord)$"
         "workspace 5,class:^(Spotify|spotify)$"
-        "workspace 6,class:^(steam)$"
-        "workspace 6,class:^(lutris)$"
-
-        # Gaming optimizations
-        "fullscreen,class:^(steam_app_.*)$"
-        "workspace 6,class:^(steam_app_.*)$"
-        "immediate,class:^(steam_app_.*)$"
-        "fullscreen,class:^(gamescope)$"
 
         # Opacity rules
         "opacity 0.9 0.9,class:^(ghostty)$"
@@ -288,6 +294,39 @@
 
   programs.ghostty = {
     enable = true;
+  };
+
+  # GTK Theme Configuration
+  gtk = {
+    enable = true;
+    theme = {
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-dark-gtk;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme;
+    };
+    cursorTheme = {
+      name = "Adwaita";
+      package = pkgs.adwaita-icon-theme;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+  };
+
+  # Qt Theme Configuration
+  qt = {
+    enable = true;
+    platformTheme.name = "gtk";
+    style = {
+      name = "adwaita-dark";
+      package = pkgs.adwaita-qt;
+    };
   };
 
   # Hypridle configuration
@@ -359,10 +398,16 @@
     # XF86 Bind Tools
     pw-volume
     brightnessctl
+    pulseaudio
+    pavucontrol
 
     # GTK Themes
     nwg-look
-    tokyonight-gtk-theme
+    gruvbox-gtk-theme
+    gruvbox-dark-gtk
+    papirus-icon-theme
+    adwaita-qt
+    adwaita-icon-theme
 
     # Screenshot tools
     grim
@@ -378,7 +423,14 @@
     wl-gammactl # Blue light filter
     wlsunset # Auto blue light based on time
     playerctl # Media control
-    pamixer # Audio control
+
+    # Calendar integration
+    vdirsyncer # Calendar synchronization
+    (pamixer.overrideAttrs (oldAttrs: {
+      env = (oldAttrs.env or { }) // {
+        NIX_CFLAGS_COMPILE = (oldAttrs.env.NIX_CFLAGS_COMPILE or "") + " -std=c++17";
+      };
+    })) # Audio control - fixed for ICU 76.1 compatibility
     swayidle # Idle management
     hypridle # Idle daemon for Hyprland
     cliphist # Clipboard history
