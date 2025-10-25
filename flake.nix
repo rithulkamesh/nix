@@ -12,7 +12,6 @@
     hyprland.url = "github:hyprwm/hyprland";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-    godot.url = "github:florianvazelle/godot-overlay";
   };
 
   outputs =
@@ -21,7 +20,6 @@
       nixpkgs,
       home-manager,
       systems,
-      godot,
       ...
     }@inputs:
     let

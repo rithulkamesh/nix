@@ -98,7 +98,6 @@
       wl-clipboard-rs
       mu
       opencl-headers
-      godot
       cudaPackages.cuda_opencl
       isync
       pkg-config
