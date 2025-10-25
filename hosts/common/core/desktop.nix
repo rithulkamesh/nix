@@ -5,16 +5,6 @@
   ...
 }:
 {
-  #
-  # GNOME Desktop Environment Configuration
-  #
-  # This section enables GNOME with the following features:
-  # - X11 server with US keyboard layout
-  # - Remaps Caps Lock key to function as a Control key
-  # - LightDM as the display manager
-  # - Latest GNOME as the desktop environment
-  # - Wayland session support
-  #
   services.xserver = {
     xkb = {
       layout = "us";

@@ -25,6 +25,7 @@
       gdb
       pavucontrol
       obs-studio
+      bat
 
       ripgrep
       fd
@@ -46,8 +47,6 @@
 
       # Productivity tools
       zellij # Terminal multiplexer
-      timewarrior # Time tracking
-      just # Command runner
       kanshi # Dynamic display configuration
 
       # Email and Calendar

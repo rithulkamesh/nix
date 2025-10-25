@@ -142,7 +142,7 @@
         "$mod CTRL, R, exec, hyprctl reload" # Reload config
         "$mod, F, fullscreen"
         "$mod SHIFT, F, exec, hyprctl dispatch workspaceopt allfloat"
-        "CTRL SHIFT, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" # Clipboard history
+        "$mod SHIFT, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" # Clipboard history
 
         # Monitor management
         "$mod CTRL, 1, focusmonitor, HDMI-A-1" # Focus external monitor

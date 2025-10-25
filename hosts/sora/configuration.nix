@@ -113,29 +113,6 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  ###########################################
-  # Display Manager Configuration
-  ###########################################
-
-  # Disable any display manager to remove greeter
-  services.xserver.displayManager = {
-    # Disable all display managers
-    sddm.enable = false;
-    gdm.enable = false;
-    lightdm.enable = false;
-    # Enable automatic login
-    autoLogin = {
-      enable = true;
-      user = "rkamesh";
-    };
-  };
-
-  # Ensure Hyprland starts directly without display manager
-  services.xserver.desktopManager = {
-    xfce.enable = false;
-    gnome.enable = false;
-    plasma5.enable = false;
-  };
   services.udev.packages = with pkgs; [ platformio-core.udev ];
 
   nix.settings.trusted-users = [
