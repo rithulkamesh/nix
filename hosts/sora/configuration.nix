@@ -47,10 +47,9 @@
       enable = true;
       # Enable WiFi password storage and automatic connection
       wifi.backend = "wpa_supplicant";
-      # Allow users to manage connections
-      enableStrongSwan = false;
-      # Enable automatic connection to known networks
-      enableWifi = true;
+      plugins = [
+        pkgs.networkmanager-strongswan
+      ];
     };
     firewall = {
       allowedUDPPorts = [
