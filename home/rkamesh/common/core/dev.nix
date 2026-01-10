@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   home.packages = with pkgs; [
     # Compiler Toolchains
-    gcc
+    (lib.hiPrio gcc)
     gnumake
     cmake
-    clang
+    (lib.lowPrio clang)
     rustup # Rust
     nodejs_22 # Node.js (Late 2025/2026 standard)
     python3
@@ -25,7 +25,7 @@
     # Debugging & Profiling
     gdb
     valgrind
-    linuxPackages.perf
+    perf
 
     # DevOps / Containers
     docker-compose

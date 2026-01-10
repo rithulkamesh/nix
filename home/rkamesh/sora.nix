@@ -32,7 +32,6 @@
       vlc
       obsidian
       discord
-      spotify
 
       # Productivity
       zellij
