@@ -2,13 +2,14 @@
   description = "Code-focused Nixconf";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     systems.url = "github:nix-systems/default";
     ghostty.url = "github:ghostty-org/ghostty";
-    home-manager.url = "github:nix-community/home-manager";
+
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    matugen.url = "github:/InioX/Matugen";
+
+    matugen.url = "github:InioX/Matugen";
     hyprland.url = "github:hyprwm/hyprland";
     hyprpaper.url = "github:hyprwm/hyprpaper";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";

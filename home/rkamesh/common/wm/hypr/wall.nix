@@ -1,20 +1,19 @@
 {
   config,
   lib,
-  packages,
+  pkgs,
   ...
 }: {
   services.hyprpaper = {
     enable = true;
     settings = {
-      ipc = "off";
-      splash = false;
       preload = [
-        "~/Pictures/wall_mtn.jpg"
+        "${config.home.homeDirectory}/Pictures/wall.png"
       ];
-
+      splash = false;
       wallpaper = [
-        ",~/Pictures/wall_mtn.jpg"
+        "eDP-1,${config.home.homeDirectory}/Pictures/wall.png"
+        "HDMI-A-1,${config.home.homeDirectory}/Pictures/wall.png"
       ];
     };
   };

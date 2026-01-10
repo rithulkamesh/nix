@@ -118,6 +118,13 @@
     "rkamesh"
   ];
 
+  services.tlp = {
+  enable = true;
+   settings = {
+     CPU_MAX_PER_ON_BAT = 60; # Limit CPU to 60% on battery
+   };
+};
+
   # Font configuration
   fonts = {
     packages = with pkgs; [
@@ -152,6 +159,7 @@
 
     # Development tools
     gnupg
+    lsof
 
     # Programming languages and build tools
     gcc

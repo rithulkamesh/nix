@@ -9,7 +9,6 @@
   wayland.windowManager.hyprland = {
     enable = true;
     systemd.enable = true;
-    xwayland.enable = true;
 
     settings = {
       # Monitor configuration
@@ -259,6 +258,8 @@
         "float,class:^(blueman-manager)$"
         "float,class:^(wlogout)$"
         "float,title:^(rofi)"
+        "float,class:^(raylib)"
+        "float,title:^(Rithul's Engine)"
 
         # Picture-in-picture
         "float,title:^(Picture-in-Picture)$"
@@ -447,5 +448,8 @@
     gtk3 # GTK3 support
     qt5.qtwayland # Qt5 Wayland support
     qt6.qtwayland # Qt6 Wayland support
+
+
+    hyprpaper 
   ];
 }

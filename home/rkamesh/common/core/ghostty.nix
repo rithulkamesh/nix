@@ -10,7 +10,7 @@
   home.file.".config/ghostty/config" = {
     text = ''
       shell-integration = zsh
-      theme = TokyoNight
+      theme = Gruvbox Dark
 
       font-family = "JetBrains Mono"
       font-size = 11

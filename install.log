@@ -1,0 +1,6 @@
+[20:58:33 2025-11-16] FETCHING Version 2.42.0
+[20:58:33 2025-11-16] DOWNLOADING https://github.com/spicetify/cli/releases/download/v2.42.0/spicetify-2.42.0-linux-amd64.tar.gz
+[20:58:33 2025-11-16] EXTRACTING /home/rkamesh/.spicetify/spicetify.tar.gz
+[20:58:33 2025-11-16] SETTING EXECUTABLE PERMISSIONS TO /home/rkamesh/.spicetify/spicetify
+[20:58:33 2025-11-16] REMOVING /home/rkamesh/.spicetify/spicetify.tar.gz
+[20:58:33 2025-11-16] APPENDING /home/rkamesh/.spicetify to PATH in /home/rkamesh/.zshrc

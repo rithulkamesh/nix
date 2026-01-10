@@ -2,8 +2,9 @@
   pkgs,
   inputs,
   ...
-}: {
-  imports = [inputs.spicetify-nix.homeManagerModules.default];
+}:
+{
+  imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
   programs.spicetify = {
     enable = true;
@@ -12,13 +13,12 @@
     ];
 
     theme = {
-      name = "Tokyo";
-      colorScheme = "Night";
+      name = "Gruvify";
       src = pkgs.fetchFromGitHub {
-        owner = "evening-hs";
-        repo = "Spotify-Tokyo-Night-Theme";
+        owner = "Skaytacium";
+        repo = "Gruvify";
         rev = "main";
-        sha256 = "sha256-cLj9v8qtHsdV9FfzV2Qf4pWO8AOBXu51U/lUMvdEXAk=";
+        sha256 = "sha256-XMW6bkpMtci7dSz94SGkX03YSEMfxBX9+eltnOfsiDs=";
       };
 
       injectCss = true;

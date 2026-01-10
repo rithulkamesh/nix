@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }:
 {
@@ -8,6 +9,7 @@
     #./common/wm/bspwm.nix
     ./common/core/ghostty.nix
     ./common/core/zsh.nix
+    ./common/core/dev.nix # Added dev environment
     ./common/wm/hyprland.nix
     ./common/optional/zathura.nix
     ./common/optional/spicetify.nix
@@ -20,43 +22,74 @@
 
     # Extra Packages that don't fall under any category
     packages = with pkgs; [
+      # GUI Apps
       mongodb-compass
-      ollama
-      gdb
-      pavucontrol
       obs-studio
-      bat
+      pavucontrol
+      slack
+      vivaldi
+      google-chrome
+      vlc
+      obsidian
+      discord
+      spotify
 
-      ripgrep
-      fd
-      shellcheck
-      pandoc
+      # Productivity
+      zellij
+      kanshi
+      bitwarden-desktop
+      bitwarden-cli
+
+      # Office / Docs
       libreoffice-qt6-fresh
+      kdePackages.okular
+      pandoc
+
+      # Creative
+      blender
+
+      # Misc CLI (that aren't strictly "dev" or are specific to this machine)
+      neofetch
       btop
-      sqlite
-      awscli2
-      jq
       tree
       wireshark
-      dig
+      isync
+      mu
 
-      code-cursor
+      # Hardware
       asusctl
 
-      slack
+      # Secrets / keys
+      gnupg
 
-      # Productivity tools
-      zellij # Terminal multiplexer
-      kanshi # Dynamic display configuration
-
-      # Email and Calendar
-      thunderbird # Email client with built-in calendar
-
-      # Password Manager and Security
-      bitwarden # Password manager with passkey support
-      bitwarden-cli # Command line interface
-
+      # QUCS-S (Electronic Sim)
+      (qucs-s.overrideAttrs (oldAttrs: {
+        # Build qucs-s with Qt6 instead of Qt5
+        buildInputs =
+          let
+            filtered = lib.filter (
+              p:
+              let
+                name = lib.getName p;
+              in
+              name != "qtbase" && name != "qtsvg" && name != "qtcharts" && !(lib.hasPrefix "qt5" name)
+            ) (oldAttrs.buildInputs or [ ]);
+          in
+          filtered
+          ++ [
+            pkgs.qt6.qtbase
+            pkgs.qt6.qtsvg
+            pkgs.qt6.qtcharts
+          ];
+        nativeBuildInputs =
+          let
+            filtered = lib.filter (p: lib.getName p != "wrapQtAppsHook") (oldAttrs.nativeBuildInputs or [ ]);
+          in
+          filtered ++ [ pkgs.qt6.wrapQtAppsHook ];
+        cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
+          "-DCMAKE_PREFIX_PATH=${pkgs.qt6.qtbase}"
+        ];
+      }))
     ];
   };
-
 }

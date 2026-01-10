@@ -1,0 +1,43 @@
+{ pkgs, ... }:
+{
+  home.packages = with pkgs; [
+    # Compiler Toolchains
+    gcc
+    gnumake
+    cmake
+    clang
+    rustup # Rust
+    nodejs_22 # Node.js (Late 2025/2026 standard)
+    python3
+    go
+
+    # Modern CLI Tools
+    ripgrep # fast grep
+    fd # fast find
+    bat # better cat
+    eza # better ls
+    fzf # fuzzy finder
+    zoxide # smarter cd
+    jq # json processor
+    yq-go # yaml processor
+    tldr # simplified man pages
+
+    # Debugging & Profiling
+    gdb
+    valgrind
+    linuxPackages.perf
+
+    # DevOps / Containers
+    docker-compose
+    lazydocker
+
+    # Network Tools
+    dig
+    nmap
+
+    # LSP / Formatters (General)
+    nixfmt-rfc-style
+    shfmt
+    shellcheck
+  ];
+}
