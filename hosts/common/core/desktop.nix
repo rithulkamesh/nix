@@ -34,11 +34,8 @@
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
-  # Polkit for authentication dialogs (needed for NetworkManager to save passwords)
+  # Polkit for authentication dialogs
   security.polkit.enable = true;
-
-  # Additional NetworkManager configuration for password storage
-  services.dbus.packages = [ pkgs.networkmanager ];
 
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {

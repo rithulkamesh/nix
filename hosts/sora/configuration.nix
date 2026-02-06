@@ -41,15 +41,18 @@
   # Networking
   ###########################################
 
+  # Disable NetworkManager - using IWD standalone
+  networking.networkmanager.enable = false;
+
   networking = {
     hostName = "sora";
-    networkmanager = {
+    wireless.iwd = {
       enable = true;
-      # Enable WiFi password storage and automatic connection
-      wifi.backend = "wpa_supplicant";
-      plugins = [
-        pkgs.networkmanager-strongswan
-      ];
+      settings = {
+        General = {
+          EnableNetworkConfiguration = true;
+        };
+      };
     };
     firewall = {
       allowedUDPPorts = [
@@ -174,7 +177,7 @@
     uv
     nodejs_20
     texliveFull
-    ffmpeg-full
+    ffmpeg
 
     # Graphics and CUDA
     cudatoolkit

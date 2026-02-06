@@ -3,18 +3,11 @@
   lib,
   pkgs,
   ...
-}: {
-  services.hyprpaper = {
-    enable = true;
-    settings = {
-      preload = [
-        "${config.home.homeDirectory}/Pictures/wall.png"
-      ];
-      splash = false;
-      wallpaper = [
-        "eDP-1,${config.home.homeDirectory}/Pictures/wall.png"
-        "HDMI-A-1,${config.home.homeDirectory}/Pictures/wall.png"
-      ];
-    };
-  };
+}:
+{
+  # Disable hyprpaper service (using swww instead for better performance)
+  services.hyprpaper.enable = false;
+
+  # swww is configured in hyprland.nix exec-once for better performance
+  # swww is significantly faster with multiple 4K displays, especially on NVIDIA
 }

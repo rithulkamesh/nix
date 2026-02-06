@@ -13,14 +13,16 @@
     settings = {
       # Monitor configuration
       monitor = [
-        "HDMI-A-1,3840x2160,0x0,1.5" # 4K external monitor on the left
-        "eDP-1,preferred,2560x0,1" # Laptop display to the right (2560px = 3840/1.5 scaling)
+        "HDMI-A-1,3840x2160@60,0x0,1.5" # 28" 4K external monitor on the left
+        # Force 4K@60Hz for DP-2 (USB-C DisplayPort) - custom mode to ensure 60Hz
+        "DP-2,3840x2160@59.997,2560x0,1.5" # 27" 4K external monitor to the right of HDMI-A-1 (USB-C)
+        "eDP-1,preferred,5120x0,1" # Laptop display to the right of DP-2 (5120px = 2560*2)
       ];
       bindl = [
         # When lid is closed, disable internal display
         ",switch:on:Lid Switch,exec,hyprctl keyword monitor eDP-1,disable"
         # When lid is opened, enable internal display
-        ",switch:off:Lid Switch,exec,hyprctl keyword monitor eDP-1,preferred,2560x0,1"
+        ",switch:off:Lid Switch,exec,hyprctl keyword monitor eDP-1,preferred,5120x0,1"
       ];
       # Input settings
       input = {
@@ -98,6 +100,7 @@
         enable_swallow = true;
         swallow_regex = "^(Alacritty|kitty|ghostty)$";
         vfr = true;
+
       };
 
       "$mod" = "SUPER";
@@ -144,8 +147,9 @@
         "$mod SHIFT, V, exec, cliphist list | rofi -dmenu | cliphist decode | wl-copy" # Clipboard history
 
         # Monitor management
-        "$mod CTRL, 1, focusmonitor, HDMI-A-1" # Focus external monitor
-        "$mod CTRL, 2, focusmonitor, eDP-1" # Focus laptop monitor
+        "$mod CTRL, 1, focusmonitor, HDMI-A-1" # Focus left external monitor
+        "$mod CTRL, 2, focusmonitor, DP-2" # Focus right external monitor
+        "$mod CTRL, 3, focusmonitor, eDP-1" # Focus laptop monitor
 
         # Pro tip bindings
         "$mod SHIFT, R, exec, wf-recorder -g \"$(slurp)\" -f ~/Videos/recording_$(date +%Y%m%d_%H%M%S).mp4" # Screen recording
@@ -201,9 +205,11 @@
       exec-once = [
         "dunst"
         "caa -d"
-        "hyprpaper"
+        "swww-daemon" # Start swww daemon for fast wallpaper rendering
+        "sleep 0.5 && swww img ~/Pictures/wall.png --outputs HDMI-A-1 && swww img ~/Pictures/wall.png --outputs DP-2 && swww img ~/Pictures/wall.png --outputs eDP-1" # Set wallpapers on all monitors
+        # Force DP-2 to 60Hz after a delay (USB-C DisplayPort may need time to negotiate)
+        "sleep 2 && hyprctl keyword monitor DP-2,3840x2160@59.997,2560x0,1.5"
         "gnome-keyring-daemon -s"
-        "nm-applet --indicator"
         "wl-paste --type text --watch cliphist store"
         "wl-paste --type image --watch cliphist store"
         "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
@@ -248,13 +254,15 @@
         "__GL_GSYNC_ALLOWED,0"
         "__GL_VRR_ALLOWED,0"
         "WLR_DRM_NO_ATOMIC,1"
+        # Force NVIDIA to use optimal rendering path
+        "__GL_ALLOW_UNOFFICIAL_PROTOCOL,0"
+        "WLR_RENDERER,vulkan"
       ];
 
       # Window rules for better app behavior
       windowrulev2 = [
         # Float specific applications
         "float,class:^(pavucontrol)$"
-        "float,class:^(nm-applet)$"
         "float,class:^(blueman-manager)$"
         "float,class:^(wlogout)$"
         "float,title:^(rofi)"
@@ -339,11 +347,8 @@
         ignore_dbus_inhibit = false
     }
 
-    # When plugged in (AC power): only lock, no dimming or sleeping
-    listener {
-        timeout = 300
-        on-timeout = test "$(cat /sys/class/power_supply/AC*/online)" = "1" && loginctl lock-session
-    }
+    # When plugged in (AC power): no auto-lock or sleep (manual lock only)
+    # Removed auto-lock listener - system will not lock/sleep when AC power is connected
 
     # When on battery: full power management (dim, lock, display off, suspend)
     listener {
@@ -371,10 +376,11 @@
 
   # Kanshi configuration for dynamic display management
   home.file.".config/kanshi/config".text = ''
-    # Profile for external monitor + laptop (docked) - current setup
+    # Profile for dual external monitors + laptop (docked)
     profile docked {
         output HDMI-A-1 mode 3840x2160@60Hz position 0,0 scale 1.5
-        output eDP-1 mode 1920x1080@144Hz position 2560,0 scale 1.0
+        output DP-2 mode 3840x2160@60Hz position 2560,0 scale 1.5
+        output eDP-1 mode 1920x1080@144Hz position 5120,0 scale 1.0
     }
 
     # Profile for laptop only (undocked)
@@ -382,9 +388,10 @@
         output eDP-1 mode 1920x1080@144Hz position 0,0 scale 1.0
     }
 
-    # Profile for external monitor only (lid closed or laptop disabled)
+    # Profile for dual external monitors only (lid closed or laptop disabled)
     profile external {
         output HDMI-A-1 mode 3840x2160@60Hz position 0,0 scale 1.5
+        output DP-2 mode 3840x2160@60Hz position 2560,0 scale 1.5
     }
   '';
 
@@ -414,9 +421,6 @@
     grim
     slurp
     wl-clipboard
-
-    # Network management
-    networkmanagerapplet
 
     # Quality of life utilities
     wlogout # Logout menu
@@ -449,7 +453,6 @@
     qt5.qtwayland # Qt5 Wayland support
     qt6.qtwayland # Qt6 Wayland support
 
-
-    hyprpaper 
+    swww # Fast wallpaper daemon (replaces hyprpaper for better performance)
   ];
 }

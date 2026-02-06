@@ -58,37 +58,8 @@
       # Hardware
       asusctl
 
-      # Secrets / keys
+      # Secretg / keys
       gnupg
-
-      # QUCS-S (Electronic Sim)
-      (qucs-s.overrideAttrs (oldAttrs: {
-        # Build qucs-s with Qt6 instead of Qt5
-        buildInputs =
-          let
-            filtered = lib.filter (
-              p:
-              let
-                name = lib.getName p;
-              in
-              name != "qtbase" && name != "qtsvg" && name != "qtcharts" && !(lib.hasPrefix "qt5" name)
-            ) (oldAttrs.buildInputs or [ ]);
-          in
-          filtered
-          ++ [
-            pkgs.qt6.qtbase
-            pkgs.qt6.qtsvg
-            pkgs.qt6.qtcharts
-          ];
-        nativeBuildInputs =
-          let
-            filtered = lib.filter (p: lib.getName p != "wrapQtAppsHook") (oldAttrs.nativeBuildInputs or [ ]);
-          in
-          filtered ++ [ pkgs.qt6.wrapQtAppsHook ];
-        cmakeFlags = (oldAttrs.cmakeFlags or [ ]) ++ [
-          "-DCMAKE_PREFIX_PATH=${pkgs.qt6.qtbase}"
-        ];
-      }))
     ];
   };
 }

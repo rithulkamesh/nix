@@ -48,6 +48,13 @@
       nvidiaBusId = "PCI:1:00:0";
       amdgpuBusId = "PCI:66:00:0";
     };
+
+    # Force maximum link bandwidth for USB-C DisplayPort connections
+    # This helps ensure 4K@60Hz works over USB-C
+    nvidiaPersistenced = true;
+    
+    # Additional settings for USB-C DisplayPort support
+    forceFullCompositionPipeline = false; # Let the compositor handle it
   };
 
   # CUDA Support for Nixpkgs

@@ -35,6 +35,8 @@
   boot.extraModprobeConfig = ''
     options nvidia NVreg_PreserveVideoMemoryAllocations=1 NVreg_TemporaryFilePath=/var/tmp
     options nvidia_drm modeset=1
+    # Force maximum link bandwidth for USB-C DisplayPort to support 4K@60Hz
+    options nvidia_drm max_bpc=10
   '';
   boot.extraModulePackages = [ ];
 

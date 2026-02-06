@@ -10,6 +10,8 @@
     nodejs_22 # Node.js (Late 2025/2026 standard)
     python3
     go
+    code-cursor
+    antigravity
 
     # Modern CLI Tools
     ripgrep # fast grep
@@ -30,6 +32,10 @@
     # DevOps / Containers
     docker-compose
     lazydocker
+    kubectl
+    minikube
+    azure-cli
+    docker-buildx
 
     # Network Tools
     dig
