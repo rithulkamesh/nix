@@ -13,6 +13,8 @@
     ./common/wm/hyprland.nix
     ./common/optional/zathura.nix
     ./common/optional/spicetify.nix
+    ./common/optional/python.nix # Python with matplotlib support
+    ./common/optional/vivaldi.nix # Vivaldi browser with ERR_NETWORK_CHANGED fixes
   ];
 
   home = {

@@ -33,6 +33,8 @@ in
     config = {
       allowUnfree = true;
       allowUnfreePredicate = _: true;
+      # Enable CUDA support for Python packages
+      cudaSupport = true;
     };
   };
 }
