@@ -7,7 +7,7 @@
   programs.hyprlock = {
     enable = true;
     settings = {
-      # BACKGROUND
+      # BACKGROUND - Use fallback color to prevent black screen
       background = [
         {
           monitor = "";
@@ -19,6 +19,11 @@
           vibrancy = 0.1;
           vibrancy_darkness = 0.3;
         }
+        # Fallback solid color if screenshot fails
+        {
+          monitor = "";
+          color = "rgba(40, 40, 40, 1.0)"; # Gruvbox dark background
+        }
       ];
 
       # GENERAL
@@ -27,7 +32,7 @@
         no_fade_out = false;
         hide_cursor = true;
         grace = 1;
-        disable_loading_bar = true;
+        disable_loading_bar = false;
       };
 
       # INPUT FIELD
@@ -63,7 +68,7 @@
       image = [
         {
           monitor = "";
-          path = "/home/rkamesh/Pictures/pfp.png";
+          path = "$HOME/Pictures/pfp.png";
           size = 120;
           border_size = 2;
           border_color = "rgba(235, 219, 178, 0.3)";

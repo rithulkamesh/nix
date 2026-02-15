@@ -222,6 +222,7 @@
         "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
         "thunderbird --background" # Start Thunderbird in background for email fetching
         "bitwarden --startup" # Start Bitwarden for system-level passkey support
+        "waybar" # Auto-start Waybar status bar
       ];
 
       env = [
